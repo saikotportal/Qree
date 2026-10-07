@@ -23,7 +23,13 @@
   document.addEventListener('click', (event) => { if (dropdown && !dropdown.contains(event.target)) { dropdown.classList.remove('open'); dropdownTrigger?.setAttribute('aria-expanded', 'false') } })
   const menuButton = document.querySelector('#menuBtn'), mobileMenu = document.querySelector('#mobileMenu'), toolsTrigger = document.querySelector('.mobile-tools-trigger'), toolsGroup = document.querySelector('.mobile-tools')
   const setToolsOpen = (open) => { toolsGroup?.classList.toggle('open', open); toolsTrigger?.setAttribute('aria-expanded', String(open)) }
-  const setMenu = (open) => { if (!menuButton || !mobileMenu) return; menuButton.setAttribute('aria-expanded', String(open)); menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); mobileMenu.classList.toggle('is-open', open); mobileMenu.setAttribute('aria-hidden', String(!open)); document.body.style.overflow = open ? 'hidden' : ''; if (!open) setToolsOpen(false) }
+  let lockY = 0, locked = false;
+  const lockScroll = (on) => {
+    const d = document.documentElement, b = document.body;
+    if (on && !locked) { locked = true; lockY = window.scrollY || d.scrollTop; d.classList.add('menu-lock'); b.style.position = 'fixed'; b.style.top = `-${lockY}px`; b.style.left = '0'; b.style.right = '0'; b.style.width = '100%'; b.style.overflow = 'hidden' }
+    else if (!on && locked) { locked = false; d.classList.remove('menu-lock'); b.style.position = ''; b.style.top = ''; b.style.left = ''; b.style.right = ''; b.style.width = ''; b.style.overflow = ''; window.scrollTo({ top: lockY, left: 0, behavior: 'instant' }) }
+  };
+  const setMenu = (open) => { if (!menuButton || !mobileMenu) return; menuButton.setAttribute('aria-expanded', String(open)); menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); mobileMenu.classList.toggle('is-open', open); mobileMenu.setAttribute('aria-hidden', String(!open)); lockScroll(open); if (!open) setToolsOpen(false) }
   menuButton?.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'))
   toolsTrigger?.addEventListener('click', () => setToolsOpen(!toolsGroup.classList.contains('open')))
   mobileMenu?.addEventListener('click', (event) => { if (event.target.closest('a')) setMenu(false) })

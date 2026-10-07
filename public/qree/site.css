@@ -462,3 +462,12 @@ body:has(.pwa-install) .to-top{bottom:72px}
 .mini-pv span{position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);padding:2px 8px;border-radius:999px;background:linear-gradient(100deg,var(--vi),var(--cy));color:#fff;font:700 8px "IBM Plex Mono",monospace;letter-spacing:.08em;white-space:nowrap}
 }
 @media(prefers-reduced-motion:reduce){.mini-pv{transition:none}}
+
+/* Mobile/tablet: editor first, preview after it */
+@media(max-width:860px){.generator-workspace .ctl,.generator-workspace .controls{order:1}.generator-workspace .pre{order:2;position:static}}
+@media(max-width:600px){.generator-workspace .pre{order:2}}
+/* Back-to-top only on laptop/desktop */
+@media(max-width:1023px){.to-top{display:none!important}}
+/* Lock page scroll while the mobile menu is open */
+html.menu-lock{overflow:hidden;overscroll-behavior:none}
+.mobile-menu{overscroll-behavior:contain}

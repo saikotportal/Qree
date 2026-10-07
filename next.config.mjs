@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [{ source: '/', destination: '/qree/index.html', permanent: false }]
+  },
 }
 
 export default nextConfig
