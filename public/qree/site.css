@@ -117,7 +117,7 @@ button,.go,.cta,.hero-primary,.hero-secondary,.nav-dropdown-trigger,.scanner-sec
 .language-native-select{display:none!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}.aur,.grid,.frame::after,.scanner-line{animation:none!important}.frame canvas,.qr-refresh canvas,.qr-exported canvas{animation:none!important;transform:none!important;opacity:1!important}body{animation:none!important}.mobile-sheet-panel,.mobile-sheet-backdrop{transition:none!important}}
 
-@media (max-width:419px){.wrap{padding-left:12px;padding-right:12px}.top{width:calc(100% - 14px)}.brand b{font-size:17px}.nav a.cta{padding:10px 11px;font-size:11px}.pre{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}.pre .fmts{grid-template-columns:repeat(2,1fr)}.footer-columns{grid-template-columns:1fr}.footer-columns a{min-height:44px;display:flex;align-items:center}.card{padding:12px}.section-heading{align-items:flex-start;flex-direction:column}.sheet-status{align-self:flex-start}}
+@media (max-width:419px){.wrap{padding-left:12px;padding-right:12px}.top{width:calc(100% - 14px)}.brand b{font-size:17px}.nav a.cta{padding:10px 11px;font-size:11px}.pre{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}.pre .fmts{grid-template-columns:repeat(2,1fr)}.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 14px}.footer-columns a{min-height:44px;display:flex;align-items:center}.card{padding:12px}.section-heading{align-items:flex-start;flex-direction:column}.sheet-status{align-self:flex-start}}
 
 
 /* Template library */
@@ -365,3 +365,72 @@ input::selection,textarea::selection{background:var(--cy);color:#06121a}
 body:has(.pwa-install) .to-top{bottom:72px}
 @media(max-width:767px){.to-top{right:14px;bottom:14px;width:44px;height:44px}body:has(.pwa-install) .to-top{bottom:68px}}
 @media print{.to-top{display:none}}
+
+/* --- Mobile header fit: keep the header inside the viewport on narrow phones --- */
+@media (max-width:600px){
+  .top{max-width:calc(100% - 20px)}
+  .top .bar{gap:8px;padding:0 10px;min-width:0}
+  .brand{flex:0 0 auto;gap:8px}
+  .brand svg{width:32px;height:32px}
+  .brand b{font-size:18px}
+  .nav{gap:6px;min-width:0;flex:0 1 auto}
+  .nav a.cta{padding:9px 11px;font-size:11px;white-space:nowrap;min-height:38px;display:inline-flex;align-items:center}
+  .language-trigger{padding:6px 8px;gap:6px;min-height:36px;font-size:11px}
+  .language-trigger .language-current{max-width:34px}
+}
+@media (max-width:420px){
+  /* language button becomes a compact globe icon */
+  .language-trigger{width:36px;height:36px;padding:0;justify-content:center;gap:0}
+  .language-trigger .language-current,.language-trigger svg{display:none}
+  .language-trigger::before{content:"";width:17px;height:17px;background:var(--cy);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z'/%3E%3C/svg%3E") center/contain no-repeat}
+}
+@media (max-width:350px){
+  /* the mobile menu already has a "Create QR" action */
+  .nav a.cta{display:none}
+}
+
+/* Footer: keep two columns on phones (also overrides any later single-column rule) */
+@media (max-width:600px){.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:22px 14px}.footer-columns a{max-width:100%;white-space:normal}}
+
+/* --- Export dialog: always fits the screen and scrolls inside itself --- */
+.export-dialog{max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.export-dialog-head{position:sticky;top:0;z-index:3;background:linear-gradient(135deg,color-mix(in srgb,var(--cy) 8%,transparent),transparent 48%),var(--surface)}
+.export-dialog label,.export-dialog select,.export-dialog input{min-width:0;max-width:100%}
+.export-dialog .export-custom{grid-column:1/-1}
+@media (max-width:600px){
+  .export-dialog{width:calc(100% - 16px);max-height:calc(100vh - 16px);max-height:calc(100dvh - 16px);border-radius:16px}
+  .export-dialog-head{padding:14px 16px 12px;gap:12px}
+  .export-dialog-head h2{font-size:19px}
+  .export-dialog-head .hint{font-size:11.5px;margin-top:4px}
+  .export-grid{grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 10px}
+  .export-options{grid-template-columns:1fr 1fr;gap:4px 10px;padding:10px 16px}
+  .export-options label:last-child{grid-column:1/-1}
+  .export-check{font-size:11px!important;line-height:1.3}
+  .export-preview{grid-template-columns:92px minmax(0,1fr);gap:12px;margin:12px 16px;padding:10px}
+  .export-preview-art{min-height:92px}
+  .export-preview-art img,.export-preview-art svg,.export-preview-art canvas{width:78px;height:78px;max-width:100%}
+  .export-preview-meta{grid-template-columns:1fr 1fr;gap:8px 10px}
+  .export-preview-meta strong{font-size:12px}
+  .export-dialog>.export-download{width:calc(100% - 32px);min-height:48px;margin:12px 16px 8px}
+  .export-secondary{gap:6px;padding:0 16px calc(16px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:340px){
+  .export-grid,.export-options{grid-template-columns:1fr}
+}
+
+.mobile-tools-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;margin:0;border:0;background:transparent;color:var(--tx);text-align:left;cursor:pointer;font:700 clamp(31px,9vw,52px)/1 Space Grotesk,sans-serif;letter-spacing:-.04em;padding:9px 0;opacity:0;transform:translateY(18px);transition:opacity .35s .15s,transform .35s .15s}
+.mobile-tools-toggle span{font:500 11px IBM Plex Mono,monospace;color:var(--cy);letter-spacing:.08em;display:inline-flex;align-items:center;gap:8px}
+.mobile-tools-toggle span::after{content:"+";font-size:16px;transition:transform .2s}
+.mobile-tools.open .mobile-tools-toggle span::after{transform:rotate(45deg)}
+.mobile-menu.is-open .mobile-tools-toggle{opacity:1;transform:none}
+.mobile-tools-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s}
+.mobile-tools.open .mobile-tools-sub{grid-template-rows:1fr}
+.mobile-tools-sub>div{overflow:hidden;display:flex;flex-direction:column;border-left:1px solid var(--ln);margin-left:4px;padding-left:14px}
+.mobile-menu nav .mobile-tools-sub a{font:600 clamp(20px,6vw,28px)/1.1 Space Grotesk,sans-serif;letter-spacing:-.02em;color:var(--mu);padding:9px 0;opacity:1;transform:none}
+.mobile-tools:not(.open) .mobile-tools-sub a{visibility:hidden}
+/* Mobile: the preview card had margin-bottom:-92px (from the old sticky-bar layout), pulling the next section underneath it */
+@media(max-width:860px){.generator-workspace .pre{margin:0 0 14px;position:relative;z-index:0}.generator-workspace .main>*{min-width:0}}
+/* Mobile: a flex/grid child sized to its content let wide content (bulk textarea/tables, tab rows) stretch the whole editor past the screen */
+@media(max-width:860px){.generator-workspace .main{display:flex;flex-direction:column;align-items:stretch;grid-template-columns:minmax(0,1fr);width:100%;max-width:100%}.generator-workspace .main>*,.generator-workspace .ctl,.generator-workspace .controls{width:100%;min-width:0;max-width:100%}.generator-workspace .tabs,.generator-workspace .type-selector{max-width:100%}.generator-workspace .tabs{overflow-x:auto;scrollbar-width:none}.generator-workspace .tabs::-webkit-scrollbar{display:none}.generator-workspace textarea,.generator-workspace .bulk-table-wrap{max-width:100%}}
