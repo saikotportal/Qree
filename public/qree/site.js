@@ -1,0 +1,1 @@
+(()=>{const r=document.documentElement,b=document.getElementById('tg');if(!b)return;b.onclick=()=>{const c=r.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c=='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('qth',n)}catch(e){}}})();

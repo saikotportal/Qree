@@ -1,0 +1,1 @@
+{"name":"QREE — Free QR Code Generator","short_name":"QREE","description":"Create beautiful, customizable QR codes privately in your browser.","start_url":"./index.html","display":"standalone","background_color":"#07080D","theme_color":"#07080D","icons":[{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}

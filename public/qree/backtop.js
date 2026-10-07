@@ -1,0 +1,10 @@
+(()=>{if(document.querySelector('.to-top'))return;
+const b=document.createElement('button');b.type='button';b.className='to-top';b.setAttribute('aria-label','Back to top');b.title='Back to top';
+b.innerHTML='<svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tt-track" cx="24" cy="24" r="20"/><circle class="tt-prog" cx="24" cy="24" r="20"/></svg><svg class="tt-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+document.body.appendChild(b);
+const p=b.querySelector('.tt-prog');let tick=false;
+const upd=()=>{tick=false;const y=window.scrollY||document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;
+b.classList.toggle('show',y>400);p.style.strokeDashoffset=126-(h>0?Math.min(1,y/h):0)*126};
+addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd);
+b.addEventListener('click',()=>{const r=matchMedia('(prefers-reduced-motion:reduce)').matches;window.scrollTo({top:0,behavior:r?'auto':'smooth'});b.blur()});
+upd()})();

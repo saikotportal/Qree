@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QREE — Free QR Code Generator</title><meta name="description" content="Create beautiful, customizable QR codes for links, Wi-Fi, contacts and more. Free, private and no sign-up required."><link rel="canonical" href="https://qree.saikot.dev/qree/index.html"><meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#07080D"><meta property="og:site_name" content="QREE"><meta property="og:locale" content="en_US"><meta property="og:type" content="website"><meta property="og:url" content="https://qree.saikot.dev/qree/index.html"><meta property="og:title" content="QREE — Free QR Code Generator"><meta property="og:description" content="Create beautiful, customizable QR codes for links, Wi-Fi, contacts and more. Free, private and no sign-up required."><meta property="og:image" content="https://qree.saikot.dev/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="QREE — Free QR Code Generator"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="QREE — Free QR Code Generator"><meta name="twitter:description" content="Create beautiful, customizable QR codes for links, Wi-Fi, contacts and more. Free, private and no sign-up required."><meta name="twitter:image" content="https://qree.saikot.dev/og-image.png"><link rel="manifest" href="manifest.json"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://qree.saikot.dev/qree/index.html#app","name":"QREE","url":"https://qree.saikot.dev/qree/index.html","description":"Free, private QR code generator and scanner that runs entirely in your browser.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Custom colors, shapes, logo and frames","Wi-Fi, contact, email and link QR codes","Bulk generation","Built-in QR scanner","Works offline (PWA)"],"author":{"@type":"Person","name":"Saikot Islam Abir","url":"https://saikot.dev"}},{"@type":"WebSite","@id":"https://qree.saikot.dev/#website","name":"QREE","url":"https://qree.saikot.dev/qree/index.html","inLanguage":"en"}]}</script>
+<meta name="author" content="Saikot Islam Abir">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2312a4cc'/%3E%3Cstop offset='.5' stop-color='%236a38f0'/%3E%3Cstop offset='1' stop-color='%23d11fb0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='13' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'%3E%3Crect x='7.5' y='7.5' width='11' height='11' rx='3.5'/%3E%3Crect x='29.5' y='7.5' width='11' height='11' rx='3.5'/%3E%3Crect x='7.5' y='29.5' width='11' height='11' rx='3.5'/%3E%3Ccircle cx='35' cy='35' r='5.5'/%3E%3Cpath d='M39 39l3.3 3.3'/%3E%3C/g%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem("qth");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07080D;--bg2:#0B0D14;--surface:#10131C;--elev:#151925;--tx:#F5F7FF;--mu:#A5ABC0;--muted:#6F758B;--pn:rgba(255,255,255,.045);--ln:rgba(255,255,255,.09);--cy:#28D7FF;--vi:#7C5CFF;--mg:#E45CFF;--in:rgba(255,255,255,.06);--ok:#35D39A;--warn:#FFCA5C;--err:#FF667D;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root[data-theme="light"]{--bg:#f4f5fb;--tx:#151727;--mu:#596078;--pn:rgba(255,255,255,.8);--ln:rgba(30,35,80,.14);--cy:#008eaf;--vi:#6947e8;--mg:#c52cb0;--in:#fff;color-scheme:light}}
+:root[data-theme="dark"]{--bg:#07080D;--tx:#F5F7FF;--mu:#A5ABC0;--pn:rgba(255,255,255,.045);--ln:rgba(255,255,255,.09);--cy:#28D7FF;--vi:#7C5CFF;--mg:#E45CFF;--in:rgba(255,255,255,.06)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 15px/1.5 Manrope,system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
+.aur{position:fixed;inset:-20%;z-index:-1;filter:blur(70px);opacity:.55;pointer-events:none;background:radial-gradient(40% 35% at 25% 30%,var(--vi),transparent 70%),radial-gradient(35% 30% at 75% 25%,var(--cy),transparent 70%),radial-gradient(40% 35% at 60% 80%,var(--mg),transparent 70%);animation:dr 24s ease-in-out infinite alternate}
+.grid{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;background-image:linear-gradient(var(--ln) 1px,transparent 1px),linear-gradient(90deg,var(--ln) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent)}
+@keyframes dr{to{transform:translate3d(6%,4%,0) rotate(8deg) scale(1.1)}}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 18px 56px}
+h1{font:700 clamp(26px,5vw,44px)/1.1 Space Grotesk,sans-serif;margin:0 0 10px;letter-spacing:-.02em;background:linear-gradient(100deg,var(--cy),var(--vi) 55%,var(--mg));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin:0 0 26px;color:var(--mu);max-width:52ch}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px;align-items:start;grid-template-areas:"ctl pre"}
+.ctl{grid-area:ctl}.pre{grid-area:pre;position:sticky;top:88px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:18px;padding:18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);margin-bottom:16px}
+h2{font:600 13px/1 Space Grotesk,sans-serif;margin:0 0 14px;letter-spacing:.02em}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button,.pre button,.seg button{font:600 13px Manrope,sans-serif;color:var(--tx);background:transparent;border:1px solid var(--ln);border-radius:999px;padding:8px 14px;cursor:pointer;transition:.2s}
+.tabs button:hover,.pre button:hover{border-color:var(--cy)}
+.tabs button[aria-pressed=true]{background:linear-gradient(100deg,var(--vi),var(--cy));border-color:transparent;color:#fff;box-shadow:0 0 22px -4px var(--vi)}
+label{display:block;font-size:12.5px;color:var(--mu);margin-bottom:12px;font-weight:600}
+input,textarea,select{display:block;width:100%;margin-top:5px;background:var(--in);color:var(--tx);border:1px solid var(--ln);border-radius:10px;padding:10px 12px;font:400 14.5px Manrope,sans-serif;transition:.2s}
+textarea{min-height:96px;resize:vertical}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--cy);outline-offset:2px;box-shadow:0 0 18px -4px var(--cy)}
+input[type=color]{padding:2px;height:40px;cursor:pointer}
+input[type=range]{padding:0;accent-color:var(--vi);height:26px}
+input[type=file]{padding:8px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0 14px}
+.pals{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:14px}
+  .pals button{position:relative;aspect-ratio:1;border-radius:12px;border:1px solid var(--ln);background:var(--b);padding:4px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.pals button i{display:block;width:100%;height:100%;border-radius:10px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.pals button:hover{transform:translateY(-3px) scale(1.06);border-color:var(--cy)}
+.pals button[aria-pressed=true]{border-color:transparent;box-shadow:0 0 0 2px var(--cy),0 0 22px -4px var(--vi)}
+.pals button[aria-pressed=true]::before{content:"";position:absolute;right:-5px;top:-5px;width:17px;height:17px;border-radius:50%;background:var(--cy) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/11px no-repeat;z-index:1}
+.pals button::after{content:attr(data-n);position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,4px);white-space:nowrap;padding:5px 9px;border-radius:8px;background:var(--tx);color:var(--bg);font:600 11.5px Manrope,sans-serif;opacity:0;pointer-events:none;transition:.15s;z-index:5}
+.pals button:hover::after,.pals button:focus-visible::after{opacity:1;transform:translate(-50%,0)}
+  .advanced-colors{margin-top:4px;border:1px solid var(--ln);border-radius:13px;background:color-mix(in srgb,var(--in) 72%,transparent);overflow:hidden;transition:.2s}
+  .advanced-colors[open]{border-color:color-mix(in srgb,var(--cy) 55%,var(--ln));box-shadow:0 10px 24px -18px var(--cy)}
+  .advanced-colors summary{display:flex;align-items:center;gap:9px;min-height:44px;padding:0 12px;color:var(--tx);font:700 13px Manrope,sans-serif;cursor:pointer;list-style:none}
+  .advanced-colors summary::-webkit-details-marker{display:none}
+  .advanced-colors summary::before{content:'✦';display:grid;place-items:center;width:23px;height:23px;border-radius:7px;color:#fff;background:linear-gradient(135deg,var(--vi),var(--cy));font-size:12px;box-shadow:0 4px 12px -5px var(--vi)}
+  .advanced-colors summary span:last-child{margin-left:auto;color:var(--mu);font-size:16px;transition:transform .2s}.advanced-colors[open] summary span:last-child{transform:rotate(180deg)}
+  .advanced-colors .color-fields{padding:0 12px 12px}.editor-group{margin:0 0 10px;border:1px solid var(--ln);border-radius:13px;background:color-mix(in srgb,var(--in) 72%,transparent);overflow:hidden}.editor-group summary{display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 13px;color:var(--tx);font-weight:700;cursor:pointer;list-style:none}.editor-group summary::-webkit-details-marker{display:none}.editor-group summary::marker{content:"";display:none}.editor-group summary:after{content:'⌄';color:var(--mu);transition:transform .2s}.editor-group[open] summary:after{transform:rotate(180deg)}.editor-group>label{padding:0 13px 11px;margin:0}.editor-group>label:last-child{padding-bottom:14px}#fields{scroll-margin-top:92px}
+  .chk{display:flex;align-items:center;gap:8px}.chk input{width:auto;margin:0}
+.v{float:right;color:var(--cy);font-weight:700}
+.grp{margin-bottom:14px}.gl{display:block;font-size:12.5px;color:var(--mu);font-weight:600}
+select#dot,select#eye,select#eyi,select#gt,select#fr,select#lsh{display:none}
+.opt{text-align:center}.opts.fr{grid-template-columns:repeat(auto-fill,minmax(80px,1fr))}.opts.fr .opt svg{width:58px;height:58px;color:var(--mu)}.opts.fr .opt[aria-checked=true] svg{color:var(--vi)}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:10px;margin-top:6px}
+.opt{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 6px 9px;background:var(--in);color:var(--tx);border:1px solid var(--ln);border-radius:14px;cursor:pointer;font:600 12px Manrope,sans-serif;transition:.2s}
+.opt svg{width:46px;height:46px}.opt:hover{border-color:var(--cy);transform:translateY(-2px)}
+.opt[aria-checked=true]{border-color:transparent;box-shadow:0 0 0 2px var(--cy),0 0 22px -4px var(--vi)}
+.hint{font-size:12.5px;color:var(--mu);margin:0 0 12px}
+.frame{position:relative;padding:26px;border-radius:20px;background:var(--pn);border:1px solid var(--ln);overflow:hidden}
+.frame canvas{display:block;width:100%;height:auto;border-radius:10px}
+.frame i{position:absolute;width:16px;height:16px;border:2px solid var(--cy);filter:drop-shadow(0 0 6px var(--cy));animation:bk 2.4s ease-in-out infinite;pointer-events:none}
+.frame i:nth-child(1){top:6px;left:6px;border-right:0;border-bottom:0}.frame i:nth-child(2){top:6px;right:6px;border-left:0;border-bottom:0}
+.frame i:nth-child(3){bottom:6px;left:6px;border-right:0;border-top:0}.frame i:nth-child(4){bottom:6px;right:6px;border-left:0;border-top:0}
+@keyframes bk{0%,100%{opacity:.45}50%{opacity:1}}
+@property --sa{syntax:"<angle>";inherits:false;initial-value:0deg}
+.frame::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--sa),transparent 0 70%,var(--cy) 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:sc 3.5s linear infinite;pointer-events:none}
+@keyframes sc{to{--sa:360deg}}
+#msg{position:absolute;inset:26px;display:none;align-items:center;justify-content:center;text-align:center;padding:20px;background:var(--in);border-radius:10px;color:var(--mu);z-index:2}
+.acts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.acts button{border-radius:12px;padding:12px 6px}
+.fmts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.fmt{padding:11px 6px;border-radius:12px;background:var(--in);color:var(--tx);border:1px solid var(--ln);cursor:pointer;font:700 13px Manrope,sans-serif;transition:.2s}
+.fmt:hover{border-color:var(--cy)}.fmt[aria-checked=true]{border-color:transparent;box-shadow:0 0 0 2px var(--cy),0 0 18px -4px var(--vi)}
+.dlb{display:block;width:100%;margin-top:10px;border-radius:12px;padding:13px 6px}
+.acts.two2{grid-template-columns:1fr 1fr;margin-top:8px}
+.acts .go,.dlb.go{background:linear-gradient(100deg,var(--vi),var(--cy));border-color:transparent;color:#fff}
+.sc{margin:8px 0 0;padding:9px 12px;border-radius:12px;font-size:12.5px;line-height:1.45;border:1px solid var(--bd,#2a2a3a);background:rgba(255,255,255,.04)}
+.lg{font:600 12.5px Manrope,sans-serif;color:var(--tx);background:transparent;border:1px solid var(--ln);border-radius:999px;padding:7px 8px;cursor:pointer;margin-right:4px;max-width:104px}.lg option{color:#111;background:#fff}
+html[lang=bn] *{font-family:'Noto Sans Bengali',Manrope,system-ui,sans-serif!important}html[lang=hi] *{font-family:'Noto Sans Devanagari',Manrope,system-ui,sans-serif!important}
+.sv{margin-top:6px;font-weight:600}.sc b{display:block;font-weight:700;margin-bottom:2px}.sc ul{margin:4px 0 0;padding-left:18px}
+.sc.ok{border-color:#1f9d55;color:#35c26f}.sc.wn{border-color:#d99a00;color:#f0b429}.sc.bd{border-color:#d64545;color:#ff6b6b}
+.stl{margin:14px 0}.stl .hint{margin:0}
+.sti{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--ln)}
+.sti i{width:26px;height:26px;border-radius:8px;flex:none;border:1px solid var(--ln)}
+.sti span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13.5px;font-weight:600}
+.sti button{font:600 12px Manrope,sans-serif;color:var(--tx);background:transparent;border:1px solid var(--ln);border-radius:999px;padding:6px 11px;cursor:pointer}
+.sti button[data-a=d].arm{border-color:#d64545;color:#ff6b6b}
+#info{font-size:12.5px;color:var(--mu);margin:12px 2px 0;min-height:36px}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--vi);color:#fff;padding:10px 18px;border-radius:999px;font-weight:600;transition:.3s;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+h3{font:600 11.5px Manrope,sans-serif;color:var(--mu);margin:10px 0;text-transform:uppercase;letter-spacing:.06em}.tabs.s{margin-bottom:16px}.pre label{margin:12px 0 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.card .tabs{margin-top:6px}.card[hidden]{display:none}
+@media(max-width:860px){.main{grid-template-columns:1fr;grid-template-areas:"pre" "ctl"}.pre{position:static}}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--ln)}
+.bar{max-width:1080px;margin:0 auto;padding:0 18px}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:66px}
+.brand{display:inline-flex;align-items:center;gap:11px;color:var(--tx);text-decoration:none;border-radius:12px}
+.brand svg{width:40px;height:40px;flex:none;filter:drop-shadow(0 5px 14px color-mix(in srgb,var(--vi) 50%,transparent));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.brand:hover svg{transform:rotate(-8deg) scale(1.06)}
+.brand b{font:700 22px/1 Space Grotesk,sans-serif;letter-spacing:.03em}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{color:var(--mu);text-decoration:none;font:600 13.5px Manrope,sans-serif;padding:9px 13px;border-radius:999px;transition:.2s}
+.nav a:hover{color:var(--tx);background:var(--pn)}
+.nav a.cta{margin:0 6px;color:#fff;background:linear-gradient(100deg,var(--vi),var(--cy));box-shadow:0 0 22px -6px var(--vi)}
+.nav a.cta:hover{color:#fff;filter:brightness(1.08)}
+.tg{width:38px;height:38px;border-radius:50%;border:1px solid var(--ln);background:var(--pn);color:var(--tx);cursor:pointer;display:grid;place-items:center;padding:0;transition:.2s}
+.tg:hover{border-color:var(--cy)}.tg svg{width:18px;height:18px}
+.brand:focus-visible,.nav a:focus-visible,.fl a:focus-visible{outline:2px solid var(--cy);outline-offset:2px}
+.foot{border-top:1px solid var(--ln);background:var(--pn);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.foot .fm{display:flex;justify-content:space-between;align-items:flex-start;gap:28px 48px;flex-wrap:wrap;padding-top:36px;padding-bottom:28px}
+.foot p{margin:14px 0 0;max-width:38ch;color:var(--mu);font-size:13.5px}
+.fl{display:flex;gap:6px 22px;flex-wrap:wrap;padding-top:4px}
+.fl a{color:var(--tx);text-decoration:none;font:600 13.5px Manrope,sans-serif;border-radius:6px}
+.fl a:hover{color:var(--cy)}
+.dev{color:var(--mu)}.dev a{color:var(--tx);font-weight:700;text-decoration:none}.dev a:hover{color:var(--cy)}
+.foot .fc{display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;border-top:1px solid var(--ln);padding-top:16px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));color:var(--mu);font-size:12.5px;max-width:1080px}
+@media(max-width:600px){.nav a:not(.cta){display:none}.nav a.cta{margin:0 2px 0 0}.top .bar{height:60px}.brand svg{width:36px;height:36px}.brand b{font-size:20px}.wrap{padding-top:28px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* custom picker + dropdown */
+.nat{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;margin:0!important;padding:0!important;border:0!important}
+.cpb,.ddb{display:flex;align-items:center;gap:10px;width:100%;height:42px;margin-top:5px;padding:0 12px;background:var(--in);color:var(--tx);border:1px solid var(--ln);border-radius:10px;font:600 13.5px Manrope,sans-serif;text-align:left;cursor:pointer;transition:.2s}
+.cpb:hover,.ddb:hover,.cpb[aria-expanded=true],.ddb[aria-expanded=true]{border-color:var(--cy);box-shadow:0 0 18px -6px var(--cy)}
+.sw{width:24px;height:24px;flex:none;border-radius:8px;background:var(--c);border:1px solid var(--ln);box-shadow:inset 0 0 0 2px rgba(255,255,255,.3)}
+.cpb .hx{flex:1;font:600 13px ui-monospace,Menlo,monospace;letter-spacing:.05em}
+.ddb span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chev{width:16px;height:16px;flex:none;color:var(--mu);transition:transform .2s}[aria-expanded=true]>.chev{transform:rotate(180deg)}
+.dd{position:relative}
+.pop,.ddl{background:color-mix(in srgb,var(--bg) 90%,var(--vi) 10%);border:1px solid var(--ln);border-radius:16px;box-shadow:0 18px 44px -12px rgba(0,0,0,.45),0 0 28px -10px var(--vi);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);animation:pp .16s ease-out}
+@keyframes pp{from{opacity:0;transform:translateY(-6px) scale(.98)}}
+@media(prefers-reduced-motion:reduce){.pop,.ddl{animation:none}}
+.ddl{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:40;margin:0;padding:6px;list-style:none;max-height:260px;overflow:auto}
+.ddl.up{top:auto;bottom:calc(100% + 6px)}.ddl[hidden],.pop[hidden]{display:none}
+.ddl li{display:flex;align-items:center;padding:9px 10px;border-radius:10px;cursor:pointer;font:600 13.5px Manrope,sans-serif}
+.ddl li[data-a]{background:color-mix(in srgb,var(--vi) 20%,transparent)}
+.ddl li[aria-selected=true]{color:var(--cy)}
+.ddl li[aria-selected=true]::after{content:"";margin-left:auto;width:14px;height:14px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l5 5 9-10'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l5 5 9-10'/%3E%3C/svg%3E") center/contain no-repeat}
+.card:has(.ddl:not([hidden])){position:relative;z-index:30}
+#cpop{position:fixed;z-index:100;width:min(264px,calc(100vw - 16px));padding:14px}
+.sv{position:relative;height:150px;border-radius:12px;cursor:crosshair;touch-action:none;background:linear-gradient(transparent,#000),linear-gradient(90deg,#fff,var(--h))}
+.hue{position:relative;height:14px;margin:14px 2px 12px;border-radius:99px;cursor:pointer;touch-action:none;background:linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)}
+.th{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:2px solid #fff;background:var(--c);box-shadow:0 0 0 1px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.4);pointer-events:none}.hue .th{top:50%}
+.cpr{display:flex;align-items:center;gap:8px}.cpr input{margin:0;height:36px;font:600 13px ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.05em}
+.cpr button{flex:none;width:36px;height:36px;border-radius:10px;border:1px solid var(--ln);background:var(--in);color:var(--tx);cursor:pointer;font-size:15px;padding:0}
+.cps{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:12px}
+.cps button{aspect-ratio:1;padding:0;border-radius:8px;border:1px solid var(--ln);background:var(--c);cursor:pointer;transition:transform .15s}.cps button:hover{transform:scale(1.15)}
+ .hero{perspective:1400px}.hero-visual{transform-style:preserve-3d;transform:rotateX(var(--hero-tilt-x,0deg)) rotateY(var(--hero-tilt-y,0deg));transition:transform .28s cubic-bezier(.2,.8,.2,1);will-change:transform}.hero-qr-card{transform:translateZ(42px) rotateZ(2deg);transform-style:preserve-3d}.hero-qr-card::before,.hero-qr-card::after{content:"";position:absolute;inset:12px;border-radius:20px;pointer-events:none}.hero-qr-card::before{transform:translateZ(-28px) translate(18px,22px);background:linear-gradient(145deg,rgba(0,214,255,.2),rgba(111,76,255,.25));filter:blur(18px);opacity:.8}.hero-qr-card::after{transform:translateZ(-14px) translate(9px,12px);border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(255,255,255,.06),transparent 45%)}.hero-qr{transform:translateZ(18px);box-shadow:inset 0 1px rgba(255,255,255,.18),0 18px 35px rgba(0,0,0,.25)}.hero-orbit{transform-style:preserve-3d}.hero-float{transform:translateZ(70px);box-shadow:0 16px 30px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.18)}@media(max-width:900px){.hero-visual{transform:none!important}.hero-qr-card{transform:translateZ(20px) rotateZ(1deg)}}@media(prefers-reduced-motion:reduce){.hero-visual{transform:none!important;transition:none}}
+ </style>
+<link rel="stylesheet" href="site.css">
+</head><body><a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="aur"></div><div class="grid"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="qg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12a4cc"/><stop offset=".5" stop-color="#6a38f0"/><stop offset="1" stop-color="#d11fb0"/></linearGradient>
+<symbol id="qm" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="url(#qg)"/><g fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><rect x="7.5" y="7.5" width="11" height="11" rx="3.5"/><rect x="29.5" y="7.5" width="11" height="11" rx="3.5"/><rect x="7.5" y="29.5" width="11" height="11" rx="3.5"/><circle cx="35" cy="35" r="5.5"/><path d="M39 39l3.3 3.3"/></g><g fill="#fff"><rect x="11.5" y="11.5" width="3" height="3" rx="1"/><rect x="33.5" y="11.5" width="3" height="3" rx="1"/><rect x="11.5" y="33.5" width="3" height="3" rx="1"/><circle cx="35" cy="35" r="1.7"/><rect x="22.5" y="9" width="3" height="3" rx="1" opacity=".85"/><rect x="9" y="22.5" width="3" height="3" rx="1" opacity=".85"/><rect x="22.5" y="22.5" width="3" height="3" rx="1" opacity=".85"/></g></symbol></defs></svg>
+<header class="top" id="top"><div class="bar"><a class="brand" href="#top" aria-label="QREE home"><svg viewBox="0 0 48 48" role="img" aria-hidden="true"><use href="#qm"/></svg><b>QREE</b></a>
+<nav class="nav" aria-label="Main"><a href="#create">Create</a><a href="templates.html">Templates</a><div class="nav-dropdown"><button type="button" class="nav-dropdown-trigger" aria-expanded="false">Tools <svg class="dropdown-chevron" viewBox="0 0 12 7" aria-hidden="true"><path d="m1 1 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-dropdown-menu"><a href="#create?pane=bulk">Bulk Generator</a><a href="tools/scanner.html">QR Scanner</a><a href="#create?pane=sheet">Sticker Sheet</a><a href="tools/scanner.html">Decoder</a></div></div><a href="resources.html">Resources</a><a class="cta" href="#create">Get started</a><div class="language-picker"><button class="language-trigger" id="languageTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Choose language"><span class="language-current">English</span><svg viewBox="0 0 12 7" aria-hidden="true"><path d="m1 1 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="language-menu" id="languageMenu" role="listbox" aria-label="Languages"><label class="language-search"><span class="sr-only">Search languages</span><input id="languageSearch" type="search" placeholder="Search languages" autocomplete="off"></label><div class="language-options"></div></div><select class="lg language-native-select" id="lang" aria-hidden="true" tabindex="-1"><option value="en">English</option><option value="bn">বাংলা</option><option value="hi">हिन्दी</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="ar">العربية</option><option value="zh">中文</option><option value="ja">日本語</option></select></div><button class="tg" id="tg" type="button" aria-label="Toggle light and dark theme" title="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor"/></svg></button><button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button></nav></div></header><div class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-glow"></div><nav aria-label="Mobile main"><a href="#create">Create <span>01</span></a><a href="templates.html">Templates <span>02</span></a><a href="#create?pane=bulk">Tools <span>03</span></a><a href="resources.html">Resources <span>04</span></a><a class="mobile-cta" href="#create">Create QR <span>→</span></a></nav><p>Everything stays in your browser.</p></div> 
+<main id="main-content" tabindex="-1">
+<section class="hero" aria-labelledby="hero-title">
+<div class="hero-text">
+<h1 id="hero-title">QR codes,<br><em>without the boring part.</em></h1>
+<p class="hero-copy">Create beautiful, customizable QR codes for links, Wi-Fi, contacts, payments and more — directly in your browser.</p>
+<div class="hero-actions"><a class="hero-primary" href="#create">Create a QR code <span aria-hidden="true">→</span></a><a class="hero-secondary" href="#stabs">Explore templates</a></div>
+<ul class="hero-perks" aria-label="Why QREE"><li><span class="pk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>Free forever</li><li><span class="pk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg></span>100% private</li><li><span class="pk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/><path d="M4 4l16 16"/></svg></span>No sign-up</li></ul>
+</div>
+<div class="hero-visual" aria-label="Animated QR code preview">
+<div class="hero-orbit hero-orbit-a"></div><div class="hero-orbit hero-orbit-b"></div>
+<div class="hero-qr-card"><div class="hero-qr-top"><span class="status-dot"></span><span>SCAN READY</span><span class="hero-live">LIVE</span></div><div class="hero-qr"><div class="qr-modules" role="img" aria-label="Scannable QR code for saikot.dev"></div><div class="qr-scanline"></div></div><div class="hero-qr-meta"><span><b>saikot.dev</b><small>WEBSITE</small></span><span><b>SAIKOT ISLAM ABIR</b><small>DEVELOPER</small></span><span><b>PRIVATE</b><small>IN BROWSER</small></span></div></div>
+<span class="hero-float hero-float-a">PRIVACY PROTECTED</span><span class="hero-float hero-float-b">#QREE_001</span>
+  </div>
+  <div class="hero-signal" aria-hidden="true"><span></span><span></span><span></span></div>
+ </section>
+  <section class="trust-strip" aria-label="Why QREE">
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 2.9 8.3 7 10 4.1-1.7 7-5.5 7-10V6l-7-3Z"/><path d="m9.5 12 1.7 1.7 3.5-3.5"/></svg></span><span>No account required</span></div>
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span><span>Local processing</span></div>
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span><span>Export-ready</span></div>
+    <div class="trust-item"><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8.1 8.1 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/><path d="M9 12h6"/></svg></span><span>Free forever</span></div>
+  </section>
+  <div class="wrap generator-workspace" id="create">
+<div class="generator-toolbar"><div class="toolbar-left"><a class="toolbar-back" href="#top" aria-label="Back to homepage">← <span>Back</span></a><div><p class="eyebrow">QREE STUDIO <span>•</span> LOCAL WORKSPACE</p><h2>New QR <span class="toolbar-name">Untitled QR</span></h2></div></div><div class="toolbar-actions"><button type="button" id="tb-save">Save</button><button type="button" id="tb-export">Export</button><button type="button" id="tb-share">Share</button><span class="toolbar-divider" aria-hidden="true"></span><button type="button" class="icon-action" id="tb-undo" aria-label="Undo" title="Undo">Undo</button><button type="button" class="icon-action" id="tb-redo" aria-label="Redo" title="Redo">Redo</button><button type="button" class="icon-action" id="tb-reset" aria-label="Reset" title="Reset">Reset</button></div></div>
+<div class="generator-intro"><p class="eyebrow">THE GENERATOR</p><h2>Make it yours.</h2><p class="sub">Text, links, Wi-Fi, contacts and more. Free, no sign-up, and everything stays in your browser.</p></div>
+<div class="main">
+<div class="ctl">
+<div class="card"><h2>Edit an existing code</h2><p class="hint">Open a PNG made with QREE and change what it says. Your logo, colors, shapes and frame come back exactly as they were. Other QR images load their content only.</p>
+<div class="tabs"><button type="button" id="oimg">Open QR image</button><button type="button" id="oprj">Open project file</button><button type="button" id="sprj">Save project file</button></div>
+<input type="file" id="fimg" accept="image/*" style="display:none"><input type="file" id="fprj" accept=".json,application/json" style="display:none"></div>
+<div class="card type-card"><div class="section-heading"><div><p class="eyebrow">CONTENT TYPE</p><h2>What should it hold?</h2></div><span class="type-count" id="type-count"></span></div><div class="type-selector" id="tabs" aria-label="QR content types"></div></div>
+<div class="card"><h2>Content</h2><p class="hint" id="th"></p><div id="fields"></div></div>
+<div class="tabs s" id="stabs"></div>
+<div id="style">
+<div class="card color-card" data-p="colors"><div class="color-heading"><div><p class="eyebrow">COLOR SYSTEM</p><h2>Make it yours</h2></div><span class="color-badge">10 presets</span></div>
+  <p class="hint color-intro">Start with a polished palette, then fine-tune every layer when you&apos;re ready.</p>
+  <div class="pals" id="pals" aria-label="Color presets"></div>
+  <details class="advanced-colors" id="advanced-colors" open><summary role="button" aria-controls="custom-color-fields"><span class="custom-label">Custom colors</span><span class="custom-chevron" aria-hidden="true"></span></summary><div class="color-fields" id="custom-color-fields">
+    <label>Background<input type="color" id="bg" value="#ffffff"></label>
+    <label>Eye ring<input type="color" id="ce" value="#111111"></label>
+    <label>Eye center<input type="color" id="cb" value="#111111"></label>
+  </div><div class="color-tools"><span id="color-readout">HEX · RGB · HSL</span><button type="button" id="eyedrop" class="tool-button">Use eyedropper</button></div></details>
+  <div class="gradient-editor">
+    <div class="gradient-editor-head"><div><span class="gl">Fill type</span><p class="gradient-helper">Choose a finish, then tune the colors.</p></div><span class="gradient-live"><i></i>LIVE</span></div>
+    <select id="gt"><option value="s">Solid</option><option value="l">Linear</option><option value="r">Radial</option></select>
+    <div class="gradient-types opts" data-for="gt" role="radiogroup" aria-label="Fill type"></div>
+    <div class="gradient-preview" id="gradient-preview" aria-label="Live gradient preview"><span></span><b id="gradient-preview-label">LINEAR · 45°</b></div>
+    <div class="gradient-settings">
+      <label class="gradient-angle">Angle <strong id="gav">45°</strong><input type="range" id="ga" min="0" max="360" value="45" aria-label="Gradient angle"></label>
+      <label>Start color<input type="color" id="c1" value="#3b2bff"></label>
+      <label>End color<input type="color" id="c2" value="#c026d3"></label>
+    </div>
+  </div>
+  <label class="chk"><input type="checkbox" id="ceo"> Custom eye ring color</label><label class="chk"><input type="checkbox" id="cbo"> Custom eye ball color</label><label class="chk"><input type="checkbox" id="tr"> Transparent background</label>
+  </div>
+<div class="card" data-p="colors"><h2>Background image</h2><p class="hint">Put a photo or pattern behind the code. Keep it faint and the code dark so it still scans.</p><div class="row"><label>Image<input type="file" id="bgi" accept="image/*"></label><label>Opacity<input type="range" id="bgo" min="5" max="100" value="35"></label></div><div class="tabs"><button type="button" id="bgx">Remove image</button></div></div>
+<div class="card" data-p="shape"><h2>Shape</h2>
+<div class="grp"><span class="gl">Dot shape</span><select id="dot"><option value="rd">Rounded</option><option value="sq">Square</option><option value="dot">Dots</option><option value="dia">Diamond</option><option value="lf">Leaf</option><option value="st">Star</option><option value="hx">Hex</option><option value="pl">Plus</option><option value="ht">Heart</option></select><div class="opts" data-for="dot"></div></div>
+<div class="grp"><span class="gl">Corner ring shape</span><select id="eye"><option value="rd">Rounded</option><option value="sq">Square</option><option value="ci">Circle</option><option value="lf">Leaf</option></select><div class="opts" data-for="eye"></div></div>
+<div class="grp"><span class="gl">Corner ball shape</span><select id="eyi"><option value="rd">Rounded</option><option value="sq">Square</option><option value="ci">Circle</option><option value="dia">Diamond</option><option value="lf">Leaf</option></select><div class="opts" data-for="eyi"></div></div>
+<label>Dot size <span class="v" id="dsv"></span><input type="range" id="ds" min="40" max="100" value="100"></label>
+</div>
+<div class="card" data-p="shape"><h2>Density and edge</h2>
+<div class="row">
+<label>Grid density <span class="v" id="verv"></span><input type="range" id="ver" min="0" max="20" value="0"></label>
+<label>Edge width <span class="v" id="mv"></span><input type="range" id="margin" min="0" max="12" value="3"></label>
+<label>Background corners <span class="v" id="radv"></span><input type="range" id="rad" min="0" max="50" value="0"></label>
+</div>
+<p class="hint">Higher density packs in more, smaller blocks. Auto picks the smallest grid that fits your content. Edge width is the blank border around the code.</p>
+<div class="row">
+<label>Error correction<select id="ec"><option value="L">Low (7%)</option><option value="M" selected>Medium (15%)</option><option value="Q">Quartile (25%)</option><option value="H">High (30%)</option></select></label>
+</div></div>
+<div class="card logo-card" data-p="logo"><div class="section-heading"><div><p class="eyebrow">BRAND MARK</p><h2>Center logo</h2></div><span class="logo-status" id="logo-status">OPTIONAL</span></div>
+<label class="logo-drop" id="logo-drop" for="logo"><input type="file" id="logo" accept="image/*"><span class="logo-drop-icon" aria-hidden="true">↑</span><span class="logo-drop-title">Drop logo here</span><span class="logo-drop-or">or</span><span class="logo-upload-button">Upload image</span><span class="logo-drop-meta">PNG, JPG or SVG · up to 5 MB</span></label>
+<div class="logo-preview" id="logo-preview" hidden><div class="logo-preview-art"><img id="logo-preview-img" alt="Uploaded logo preview"></div><div><strong>Logo ready</strong><span id="logo-preview-name">Uploaded image</span></div><button type="button" id="logo-replace">Replace</button></div>
+  <div class="logo-settings">
+  <label>Size <span class="v" id="lszv"></span><input type="range" id="lsz" min="10" max="30" value="20"></label>
+  <label>Padding <span class="v" id="lpdv"></span><input type="range" id="lpd" min="0" max="30" value="12"></label>
+  <label>Background opacity <span class="v" id="lbov"></span><input type="range" id="lbo" min="0" max="100" value="100"></label>
+  <label class="logo-color-field">Background<input type="color" id="lbg" value="#ffffff"></label>
+  </div>
+  <div class="grp logo-shape-group"><span class="gl">Logo shape</span><select id="lsh"><option value="ci">Circle</option><option value="rd">Rounded square</option><option value="sq">Square</option><option value="bd">Custom badge</option></select><div class="opts logo-shapes" data-for="lsh"></div></div>
+  <label class="chk"><input type="checkbox" id="lbk" checked> Clear backing behind logo</label>
+  <div class="badge-heading"><h3>Text badge</h3><span>OPTIONAL</span></div>
+  <p class="hint">Use a short label or emoji when you do not have a logo image.</p>
+<div class="row"><label>Badge text<input id="ltx" maxlength="4" placeholder="QR, 🌐 ..."></label><label>Badge color<input type="color" id="lfc" value="#3b2bff"></label><label>Text color<input type="color" id="ltc" value="#ffffff"></label></div>
+<div class="badge-presets" id="badge-presets" aria-label="Badge presets"></div><div class="tabs" id="emo" aria-label="Emoji presets"></div>
+<div class="tabs"><button type="button" id="lrm">Remove logo</button></div>
+<p class="hint">An uploaded image takes priority over the badge. Any logo switches error correction to High.</p></div>
+<div class="card frame-card" data-p="frame"><div class="section-heading"><div><p class="eyebrow">FRAME BUILDER</p><h2>Give your QR a voice</h2></div><span class="frame-status">STATIC EXPORT</span></div>
+  <div class="grp"><span class="gl">Frame style</span><select id="fr"></select><div class="opts fr frame-templates" data-for="fr"></div></div>
+  <div class="frame-editor-grid"><label>Label<input id="frt" value="SCAN ME" maxlength="30"></label><label>Label font<select id="frf"><option>Manrope</option><option>Space Grotesk</option><option>IBM Plex Mono</option></select></label><label>Label color<input type="color" id="frx" value="#ffffff"></label><label>Frame color<input type="color" id="frc" value="#3b2bff"></label><label>Padding <span class="v" id="frpv"></span><input type="range" id="frp" min="0" max="24" value="6"></label><label>Radius <span class="v" id="frrv"></span><input type="range" id="frr" min="0" max="24" value="9"></label></div>
+  <div class="frame-live-preview" aria-label="Animated frame preview"><div class="frame-live-scan"></div><div class="frame-live-code"><i></i><i></i><i></i><i></i><b></b></div><span id="frame-live-label">SCAN ME</span></div>
+  <p class="hint">Animated preview only. Static exports keep the selected frame without animation.</p></div>
+<div class="card" data-p="presets"><h2>Style templates</h2><div class="tabs" id="tp"></div></div>
+<div class="card" data-p="presets"><h2>Your styles</h2>
+<div class="row"><label>Name<input id="stn" maxlength="30" placeholder="e.g. My brand"></label></div>
+<div class="tabs"><button type="button" id="sav">Save style</button><button type="button" id="sur">Surprise me</button><button type="button" id="rst">Reset all</button></div>
+<div id="stl" class="stl"></div>
+<div class="tabs"><button type="button" id="stx">Export</button><button type="button" id="sti2">Import</button><input type="file" id="sti" accept=".json,application/json" hidden></div></div>
+<div class="card sheet-card" data-p="sheet"><div class="section-heading"><div><p class="eyebrow">PRINT WORKSPACE</p><h2>Sticker sheet</h2></div><span class="sheet-status" id="sheet-status">LIVE PREVIEW</span></div><p class="hint">Set up a printable page and see the exact sticker layout before downloading the PDF.</p>
+ <div class="sheet-layout"><div class="sheet-controls"><div class="sheet-paper-select"><label for="shp">Paper size <span>Choose your print sheet</span></label><select id="shp" aria-label="Paper size"><option value="a4">A4 · 210 × 297 mm</option><option value="lt">US Letter · 215.9 × 279.4 mm</option></select></div>
+ <div class="sheet-field-grid"><label>Sticker size <span class="v" id="shwv">40 mm</span><input type="number" id="shw" value="40" min="10" max="150" step="1"></label><label>Gap <span class="v" id="shgv">4 mm</span><input type="number" id="shg" value="4" min="0" max="30" step="1"></label><label>Copies <span class="v" id="shnv">12</span><input type="number" id="shn" value="12" min="1" max="500" step="1"></label></div>
+ <div class="sheet-checks"><label class="chk"><input type="checkbox" id="shf" checked> Fill page</label><label class="chk"><input type="checkbox" id="shc" checked> Cut guides</label></div><p class="hint sheet-metrics" id="shi"></p></div>
+ <div class="sheet-preview-panel"><div class="sheet-preview-head"><span>LIVE PAPER PREVIEW</span><b id="sheet-preview-size">A4 · 210 × 297 mm</b></div><div class="sheet-preview-stage"><div id="sheet-preview" class="sheet-preview" aria-label="Live sticker sheet preview"></div></div><div class="sheet-preview-foot"><span><i class="sheet-legend-dot"></i> QR stickers</span><span id="sheet-page-count">1 page</span></div></div></div>
+ <div class="sheet-actions"><button type="button" class="go" id="shd">Download sticker sheet PDF</button><span>Uses your current colors, logo, frame and content.</span></div></div>
+<div class="card bulk-card" data-p="bulk"><div class="bulk-heading"><div><span class="eyebrow">Batch workspace</span><h2>Bulk generate</h2><p class="hint">Import rows, review every value, then generate a ZIP using the content type and style selected above.</p></div><span class="bulk-limit">Up to 200</span></div>
+<div class="bulk-steps" role="list" aria-label="Bulk generation steps"><button type="button" class="bulk-step is-active" data-bulk-step="import"><b>01</b><span>Import</span></button><button type="button" class="bulk-step" data-bulk-step="configure"><b>02</b><span>Configure</span></button><button type="button" class="bulk-step" data-bulk-step="generate"><b>03</b><span>Generate</span></button></div>
+<section class="bulk-panel" data-bulk-panel="import"><div class="bulk-drop"><label for="bkfi"><span class="bulk-drop-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v4h14v-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><strong>Upload CSV or TXT</strong><small>or paste rows below</small><input type="file" id="bkfi" accept=".csv,.txt,text/csv,text/plain"></label></div><label>Paste data<textarea id="bkt" rows="6" placeholder="https://example.com/a&#10;https://example.com/b,menu"></textarea></label><label class="chk"><input type="checkbox" id="bkh"> First row is a header</label><p class="hint" id="bki" style="margin-top:12px"></p><div id="bk-preview" class="bulk-preview" hidden></div><button type="button" class="go" id="bk-review">Review rows</button></section>
+<section class="bulk-panel" data-bulk-panel="configure" hidden><div class="bulk-config-grid"><label>Output format<select id="bkf"><option value="png">PNG</option><option value="svg">SVG</option><option value="both">PNG + SVG</option><option value="zip">ZIP bundle</option></select></label><label>Content type<span class="bulk-readonly" id="bk-type">Current editor type</span></label></div><p class="hint">Each row uses the current content type, error correction, colors, logo, frame and style settings.</p><button type="button" class="go" id="bk-configure">Continue to generate</button></section>
+<section class="bulk-panel" data-bulk-panel="generate" hidden><div class="bulk-generate-summary"><div><span class="eyebrow">Ready to generate</span><strong id="bk-summary">0 rows</strong></div><span id="bk-format-label">ZIP bundle</span></div><progress id="bkp" value="0" max="1" hidden></progress><p class="hint" id="bk-status">Review your rows, then start the batch.</p><button type="button" class="go" id="bkd">Generate ZIP</button></section></div>
+</div>
+</div>
+<div class="pre">
+<div class="frame"><i></i><i></i><i></i><i></i><canvas id="cv" role="img" aria-label="Generated QR code"></canvas><div id="msg"></div></div>
+<label>Download size<select id="size"><option value="512">512 px</option><option value="1024" selected>1024 px</option><option value="2048">2048 px</option><option value="4096">4096 px</option></select></label>
+<div class="fmts" role="radiogroup" aria-label="Download format"><button type="button" class="fmt" role="radio" aria-checked="true" data-f="png">PNG</button><button type="button" class="fmt" role="radio" aria-checked="false" data-f="svg">SVG</button><button type="button" class="fmt" role="radio" aria-checked="false" data-f="jpg">JPG</button><button type="button" class="fmt" role="radio" aria-checked="false" data-f="webp">WebP</button></div>
+<button class="go dlb" id="dlb" type="button">Download PNG</button>
+  <div class="acts two2"><button id="cp">Copy</button><button id="prt">Print</button></div>
+<div class="acts two2" style="grid-template-columns:1fr"><button id="shgo" type="button">Sticker sheet…</button></div>
+<p id="info"></p>
+<div id="sc" class="sc" role="status" aria-live="polite" hidden></div>
+<div class="two"><button id="bwr">Reset style</button><button id="tst">Test scan</button></div>
+</div>
+</div>
+</div>
+</main>
+<footer class="foot"><div class="bar fm"><div class="footer-brand"><a class="brand" href="#top" aria-label="QREE, back to top"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#qm"/></svg><b>QREE</b></a><p>Free QR codes with your own colors, shapes, logo and frame. Nothing is uploaded. Everything stays in your browser.</p></div><div class="footer-columns"><div><b>Product</b><a href="#create">Create QR</a><a href="templates.html">Templates</a><a href="#create">Projects</a><a href="#create?pane=bulk">Bulk Generator</a><a href="tools/scanner.html">Scanner</a></div><div><b>Tools</b><a href="#create">QR Generator</a><a href="tools/scanner.html">QR Scanner</a><a href="#create?pane=sheet">Sticker Sheet</a><a href="tools/scanner.html">Decoder</a></div><div><b>Resources</b><a href="features.html">Features</a><a href="resources.html">Guides</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><div><b>Legal</b><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div></div>
+<div class="bar fc"><span>&copy; 2026 QREE. Free to use, no sign-up.</span><span class="dev">Designed &amp; developed by <a href="https://saikot.dev" target="_blank" rel="noopener">Saikot Islam Abir</a></span></div></footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="pv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--cy)"/><stop offset="1" style="stop-color:var(--vi)"/></linearGradient><radialGradient id="pr"><stop offset="0" style="stop-color:var(--cy)"/><stop offset="1" style="stop-color:var(--vi)"/></radialGradient></defs></svg>
+<div id="toast" role="status"></div><dialog id="export-center" class="export-dialog" aria-labelledby="export-title"><div class="export-dialog-head"><div><p class="eyebrow">EXPORT CENTER</p><h2 id="export-title">Ship your QR</h2><p class="hint">Choose a format and export settings for this code.</p></div><button type="button" class="dialog-close" id="export-close" aria-label="Close export center">×</button></div><div class="export-grid"><label>Format<select id="export-format"><option value="png">PNG</option><option value="jpg">JPG</option><option value="webp">WebP</option><option value="svg">SVG</option><option value="pdf">PDF</option></select></label><label>Resolution<select id="export-resolution"><option value="512">512 px</option><option value="1024" selected>1024 px</option><option value="2048">2048 px</option><option value="4096">4096 px</option><option value="custom">Custom</option></select></label><label class="export-custom" id="export-custom-wrap" hidden>Custom size<input id="export-custom-size" type="number" min="128" max="8192" step="1" value="1024"> </label></div><div class="export-options"><label class="export-check"><input id="export-transparent" type="checkbox"> Transparent background</label><label class="export-check"><input id="export-frame" type="checkbox" checked> Include frame</label><label class="export-check"><input id="export-logo" type="checkbox" checked> Include logo</label><label>Compression<input id="export-quality" type="range" min="40" max="100" value="95"><span id="export-quality-value">95%</span></label></div><div class="export-preview"><div class="export-preview-art" id="export-preview-art" aria-label="QR export preview"></div><div class="export-preview-meta"><div><span>Estimated file size</span><strong id="export-size">—</strong></div><div><span>Dimensions</span><strong id="export-dimensions">1024 × 1024 px</strong></div><div><span>Format</span><strong id="export-format-label">SVG</strong></div><div><span>Scan quality</span><strong id="export-quality-label">High</strong></div></div></div><button class="go export-download" id="export-download" type="button">Download SVG</button><div class="export-secondary"><button type="button" id="export-png">Download PNG</button><button type="button" id="export-copy">Copy</button><button type="button" id="export-print">Print</button></div><div class="export-preview"><div class="export-preview-art" id="export-preview-art" aria-label="QR export preview"></div><div class="export-preview-meta"><div><span>Estimated file size</span><strong id="export-size">—</strong></div><div><span>Dimensions</span><strong id="export-dimensions">1024 × 1024 px</strong></div><div><span>Format</span><strong id="export-format-label">SVG</strong></div><div><span>Scan quality</span><strong id="export-quality-label">High</strong></div></div></div></dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);window.qreeSecurity=window.qreeSecurity||{MAX_PROJECT_BYTES:2*1024*1024,MAX_IMPORT_BYTES:10*1024*1024,MAX_IMAGE_BYTES:5*1024*1024,parseProject(text){if(typeof text!=='string'||text.length>this.MAX_PROJECT_BYTES)throw new Error('Project file is too large.');const data=JSON.parse(text);if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('Invalid project file.');return data},readTextFile(file,maxBytes=this.MAX_IMPORT_BYTES){if(!file||file.size>maxBytes)throw new Error('File is too large.');return file.text()}};
+if(window.qrcode&&qrcode.stringToBytesFuncs)qrcode.stringToBytes=qrcode.stringToBytesFuncs['UTF-8'];
+const esc=s=>(s||'').replace(/([\\;,:"])/g,'\\$1'),en=encodeURIComponent,dt=s=>s.replace(/[-:]/g,'')+(s.length==16?'00':'');
+const T={
+text:{n:'Text',f:[['text','Your text','area']],e:v=>v.text},
+url:{n:'Website',f:[['url','Website URL','url','https://example.com']],e:v=>v.url},
+image:{n:'Image',h:'Paste a public link to an image. Scanning opens it.',f:[['url','Image link','url','https://example.com/photo.jpg']],e:v=>v.url},
+wifi:{n:'Wi-Fi',h:'Scanning joins the network.',f:[['ssid','Network name'],['pw','Password'],['enc','Security','sel',['WPA','WEP','nopass']],['hidden','Hidden network','check']],e:v=>`WIFI:T:${v.enc||'WPA'};S:${esc(v.ssid)};P:${esc(v.pw)};H:${v.hidden?'true':'false'};;`},
+email:{n:'Email',f:[['to','To','email','name@example.com'],['sub','Subject'],['body','Message','area']],e:v=>`mailto:${v.to}?subject=${en(v.sub||'')}&body=${en(v.body||'')}`},
+tel:{n:'Phone',f:[['tel','Number','tel','+36 30 123 4567']],e:v=>'tel:'+v.tel.replace(/\s/g,'')},
+sms:{n:'SMS',f:[['tel','Number','tel','+36 30 123 4567'],['msg','Message','area']],e:v=>`SMSTO:${v.tel.replace(/\s/g,'')}:${v.msg||''}`},
+
+geo:{n:'Location',f:[['lat','Latitude','number','47.4979'],['lng','Longitude','number','19.0402']],e:v=>v.lat&&v.lng?`geo:${v.lat},${v.lng}`:''},
+event:{n:'Event',f:[['title','Event name'],['loc','Location'],['st','Start','datetime-local'],['en','End','datetime-local'],['desc','Description','area'],['tz','Timezone','text','Europe/Budapest']],e:v=>v.st?`BEGIN:VEVENT\nSUMMARY:${v.title}\nDTSTART;TZID=${v.tz||'UTC'}:${dt(v.st)}\n${v.en?'DTEND;TZID='+ (v.tz||'UTC') +':'+dt(v.en)+'\n':''}LOCATION:${v.loc||''}\nDESCRIPTION:${v.desc||''}\nEND:VEVENT`:''},
+wa:{n:'WhatsApp',f:[['tel','Number with country code','tel','+36 30 123 4567'],['msg','Message','area']],e:v=>`https://wa.me/${v.tel.replace(/\D/g,'')}${v.msg?'?text='+en(v.msg):''}`},
+social:{n:'Social',h:'Build a profile-style QR link for any social platform.',f:[['pf','Platform','sel',['Instagram','Facebook','TikTok','YouTube','LinkedIn','X','Website']],['u','Username or profile URL','text','yourname']],e:v=>v.pf==='Website'?v.u:({Instagram:'https://instagram.com/',TikTok:'https://tiktok.com/@',YouTube:'https://youtube.com/@',X:'https://x.com/',LinkedIn:'https://linkedin.com/in/',Facebook:'https://facebook.com/'}[v.pf||'Instagram'])+v.u.replace(/^@/,'')},
+paypal:{n:'PayPal',f:[['u','PayPal.Me name'],['am','Amount (optional)','number'],['cu','Currency','sel',['USD','EUR','GBP','HUF']]],e:v=>`https://paypal.me/${v.u}${v.am?'/'+v.am+(v.cu||'USD'):''}`},
+crypto:{n:'Crypto',f:[['ad','Wallet address'],['cn','Coin','sel',['bitcoin','ethereum','litecoin']],['am','Amount (optional)','number']],e:v=>`${v.cn||'bitcoin'}:${v.ad}${v.am?'?amount='+v.am:''}`}
+};
+const P=[['Midnight','#111827','#374151','#f8fafc'],['Aurora','#06b6d4','#8b5cf6','#f8fbff'],['Ocean','#0369a1','#22d3ee','#effbff'],['Cyber','#7c3aed','#ec4899','#0b1020'],['Sunset','#f97316','#e11d48','#fff7ed'],['Mono','#000000','#000000','#ffffff'],['Royal','#4338ca','#a855f7','#faf5ff'],['Forest','#166534','#84cc16','#f7fee7'],['Candy','#db2777','#f472b6','#fff1f2'],['Paper','#334155','#64748b','#ffffff'],['Citrus','#65a30d','#facc15','#fbffe8'],['Berry','#7e22ce','#f43f5e','#fff1f8']];
+let bkRun=false,bkStop=false;
+let type='url',vals={url:'https://example.com'},cur=null,logoImg=null,logoData='',bgImg=null,bgData='',raf=0,tm=0;
+const PX=Math.round(560*Math.min(window.devicePixelRatio||1,2)),cv=$('#cv');
+const TYPE_ICON={link:'<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg>',text:'<svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h10M5 18h7"/></svg>',wifi:'<svg viewBox="0 0 24 24"><path d="M3 9a14 14 0 0 1 18 0M6 13a9 9 0 0 1 12 0M9.5 17a4 4 0 0 1 5 0M12 20h.01"/></svg>',email:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>',phone:'<svg viewBox="0 0 24 24"><path d="M7 4h3l1.5 4-2 1.5a14 14 0 0 0 5 5L16 12l4 1.5v3a2 2 0 0 1-2 2C10 18.5 5.5 14 5.5 6A2 2 0 0 1 7 4Z"/></svg>',message:'<svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 3V5Z"/><path d="M8 9h8M8 12h5"/></svg>',card:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M13 10h5M13 14h4"/></svg>',pin:'<svg viewBox="0 0 24 24"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/></svg>',calendar:'<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>',chat:'<svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 3V5Z"/><path d="M8 10h8M8 13h5"/></svg>',app:'<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 7h6M10 17h4"/></svg>',image:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m4 17 5-5 3 3 2-2 6 5"/></svg>',coin:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M14 8h-3a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4H9M12 6v2M12 16v2"/></svg>',code:'<svg viewBox="0 0 24 24"><path d="m9 7-5 5 5 5M15 7l5 5-5 5"/></svg>',custom:'<svg viewBox="0 0 24 24"><path d="M8 4H5a2 2 0 0 0-2 2v3M16 4h3a2 2 0 0 1 2 2v3M8 20H5a2 2 0 0 1-2-2v-3M16 20h3a2 2 0 0 0 2-2v-3"/></svg>'};const TYPE_META={url:['Popular','Website','Link or landing page',TYPE_ICON.link],text:['Popular','Text','Notes and messages',TYPE_ICON.text],wifi:['Popular','Wi-Fi','Network credentials',TYPE_ICON.wifi],email:['Popular','Email','Inbox-ready message',TYPE_ICON.email],tel:['Popular','Phone','Call a number',TYPE_ICON.phone],sms:['Popular','SMS','Text message',TYPE_ICON.message],card:['Business','vCard','Contact card',TYPE_ICON.card],loc:['Business','Location','Map coordinates',TYPE_ICON.pin],event:['Business','Event','Calendar invite',TYPE_ICON.calendar],wa:['Social','WhatsApp','Chat shortcut',TYPE_ICON.chat],app:['Social','App','Deep link',TYPE_ICON.app],image:['Advanced','Image','Open an image URL',TYPE_ICON.image],crypto:['Advanced','Bitcoin','Wallet payment',TYPE_ICON.coin],plain:['Advanced','Plain text','Raw payload',TYPE_ICON.code],custom:['Advanced','Custom payload','Advanced data',TYPE_ICON.custom]};
+  function tabs(){const items=Object.entries(T).filter(([k])=>k!=='card');$('#tabs').innerHTML=items.map(([k,t])=>{const m=TYPE_META[k]||['',t.n,'QR content',TYPE_ICON.link];return `<button type="button" class="type-option" data-t="${k}" aria-pressed="${k==type}" title="${t.n} QR code"><span class="type-icon" aria-hidden="true">${m[3]}</span><span class="type-copy"><strong>${t.n}</strong><small>${m[2]}</small></span></button>`}).join('');$('#type-count').textContent=`${items.length} formats`;
+  $('#th').textContent=T[type].h||'';$('#th').hidden=!T[type].h;
+ const field=([k,l,t,p])=>{const v=xe(vals[k]||'').replace(/"/g,'&quot;');const i=t=='area'?`<textarea data-k="${k}">${v}</textarea>`:t=='sel'?`<select data-k="${k}">${p.map(o=>`<option ${o==v?'selected':''}>${o}</option>`).join('')}</select>`:t=='check'?`<span class="checkline"><input data-k="${k}" type="checkbox" ${vals[k]?'checked':''}><span>Yes, this network is hidden</span></span>`:`<input data-k="${k}" type="${t||'text'}" step="any" placeholder="${p||''}" value="${v}">`;return `<label>${l.replace(/^.*? · /,'')}${i}</label>`};
+ if(type=='card'){const groups=[['Personal',T[type].f.slice(0,1)],['Contact',T[type].f.slice(1,3)],['Company',T[type].f.slice(3,4)],['Address',T[type].f.slice(4,5)],['Social',T[type].f.slice(5)]];$('#fields').innerHTML=groups.map(([n,fs])=>`<details class="editor-group" open><summary><span class="group-title">${n}</span></summary>${fs.map(field).join('')}</details>`).join('')}else {$('#fields').innerHTML=T[type].f.map(field).join('');if(type=='url')$('#fields').insertAdjacentHTML('beforeend',`<p class="field-status" id="url-status" role="status">✓ Valid URL</p>`)} }
+function encode(){const t=T[type],v={};t.f.forEach(([k])=>v[k]=(vals[k]||'').trim());
+ if(!v[t.f[0][0]])return'';return t.e(v)}
+const rr=(x,y,w,h,r)=>`M${x+r} ${y}H${x+w-r}A${r} ${r} 0 0 1 ${x+w} ${y+r}V${y+h-r}A${r} ${r} 0 0 1 ${x+w-r} ${y+h}H${x+r}A${r} ${r} 0 0 1 ${x} ${y+h-r}V${y+r}A${r} ${r} 0 0 1 ${x+r} ${y}Z`;
+const ci=(x,y,r)=>`M${x-r} ${y}a${r} ${r} 0 1 0 ${2*r} 0a${r} ${r} 0 1 0 ${-2*r} 0Z`;
+const pl=a=>'M'+a.map(p=>p.map(n=>+n.toFixed(3)).join(' ')).join('L')+'Z',xe=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])),FF='Space Grotesk,Manrope,sans-serif',sc=document.createElement('canvas').getContext('2d');
+const box=(x,y,w,s)=>{const r=w*.45;return s=='sq'?`M${x} ${y}h${w}v${w}h${-w}Z`:s=='rd'?rr(x,y,w,w,w*.3):s=='lf'?`M${x} ${y}H${x+w-r}A${r} ${r} 0 0 1 ${x+w} ${y+r}V${y+w}H${x+r}A${r} ${r} 0 0 1 ${x} ${y+w-r}Z`:s=='dia'?pl([[x+w/2,y],[x+w,y+w/2],[x+w/2,y+w],[x,y+w/2]]):ci(x+w/2,y+w/2,w/2)};
+const dp=(s,x,y,k,o)=>{const c=x+.5,d=y+.5,h=k/2,u=k/6,f=(a,b)=>`${c+a*k} ${d+b*k}`;
+ if(['sq','rd','lf','dia'].includes(s))return box(x+o,y+o,k,s);if(s=='dot')return ci(c,d,h);
+ if(s=='st')return pl(Array.from({length:10},(_,i)=>{const a=Math.PI*i/5-Math.PI/2,q=i%2?h*.5:h;return[c+q*Math.cos(a),d+q*Math.sin(a)]}));
+ if(s=='hx')return pl(Array.from({length:6},(_,i)=>{const a=Math.PI*i/3;return[c+h*Math.cos(a),d+h*Math.sin(a)]}));
+ if(s=='pl')return pl([[c-u,d-h],[c+u,d-h],[c+u,d-u],[c+h,d-u],[c+h,d+u],[c+u,d+u],[c+u,d+h],[c-u,d+h],[c-u,d+u],[c-h,d+u],[c-h,d-u],[c-u,d-u]]);
+ return `M${f(0,.42)}C${f(-.55,.05)} ${f(-.5,-.4)} ${f(-.25,-.4)}C${f(-.1,-.4)} ${f(0,-.28)} ${f(0,-.18)}C${f(0,-.28)} ${f(.1,-.4)} ${f(.25,-.4)}C${f(.5,-.4)} ${f(.55,.05)} ${f(0,.42)}Z`};
+function hasLogo(){return logoImg||$('#ltx').value.trim()}
+function geo(){const n=cur.getModuleCount(),m=+$('#margin').value;return{n,m,T:n+2*m,lg:hasLogo()?+$('#lsz').value/100*n:0}}
+function path(reveal){const{n,m,T:t,lg}=geo(),ds=$('#dot').value,es=$('#eye').value,ei=$('#eyi').value,k=$('#ds').value/100,o=(1-k)/2,h=.5*k;let d='',e='',b='';
+ for(let r=0;r<n;r++)for(let c=0;c<n;c++){
+  if((r<7&&c<7)||(r<7&&c>=n-7)||(r>=n-7&&c<7)||!cur.isDark(r,c))continue;
+  const x=c+m,y=r+m,cx=x+.5,cy=y+.5;
+  if(lg&&Math.abs(cx-t/2)<lg/2+.3&&Math.abs(cy-t/2)<lg/2+.3)continue;
+  if(reveal<1&&Math.hypot(cx-t/2,cy-t/2)/(t*.71)>reveal)continue;
+  d+=dp(ds,x,y,k,o)}
+ for(const[ex,ey]of[[0,0],[n-7,0],[0,n-7]]){e+=box(ex+m,ey+m,7,es)+box(ex+m+1,ey+m+1,5,es);b+=box(ex+m+2,ey+m+2,3,ei)}
+ return{d,e,b}}
+function gr(t){const a=$('#ga').value*Math.PI/180,c=t/2,L=c*(Math.abs(Math.cos(a))+Math.abs(Math.sin(a)));return{k:$('#gt').value,x1:c-Math.cos(a)*L,y1:c-Math.sin(a)*L,x2:c+Math.cos(a)*L,y2:c+Math.sin(a)*L,r:t*.71,c}}
+function fs(x,t){const g=gr(t),a=$('#c1').value;if(g.k=='s')return a;const o=g.k=='l'?x.createLinearGradient(g.x1,g.y1,g.x2,g.y2):x.createRadialGradient(g.c,g.c,0,g.c,g.c,g.r);o.addColorStop(0,a);o.addColorStop(1,$('#c2').value);return o}
+const bc=()=>$('#cbo').checked?$('#cb').value:$('#ceo').checked?$('#ce').value:null;
+const Lb=(cx,cy,w,h,f)=>({tx:1,cx,cy,w,h,f}),Fp=(d,f,eo)=>({d,f,eo}),Sp=(d,s,w,dash)=>({d,s,w,dash}),
+scal=(W,k,r)=>{const s=W/k,e=Array.from({length:k},(_,i)=>(i+.5)*s);let d='M0 0';
+ e.forEach(m=>d+=`H${m-r}A${r} ${r} 0 0 0 ${m+r} 0`);d+=`H${W}`;
+ e.forEach(m=>d+=`V${m-r}A${r} ${r} 0 0 0 ${W} ${m+r}`);d+=`V${W}`;
+ e.forEach(m=>d+=`H${W-m+r}A${r} ${r} 0 0 0 ${W-m-r} ${W}`);d+=`H0`;
+ e.forEach(m=>d+=`V${W-m+r}A${r} ${r} 0 0 0 0 ${W-m-r}`);return d+'Z'};
+const FD={
+none:{n:'None',g:t=>({W:t,H:t,ox:0,oy:0,els:[]})},
+line:{n:'Border',g:(t,c)=>{const u=t/100,F=6*u,W=t+2*F;return{W,H:W,ox:F,oy:F,w:1,els:[Fp(rr(0,0,W,W,9*u),c)]}}},
+bot:{n:'Label below',g:(t,c,x)=>{const u=t/100,F=6*u,B=17*u,W=t+2*F,H=t+F+B;return{W,H,ox:F,oy:F,w:1,els:[Fp(rr(0,0,W,H,9*u),c),Lb(W/2,F+t+B/2,W*.86,B*.5,x)]}}},
+top:{n:'Label above',g:(t,c,x)=>{const u=t/100,F=6*u,B=17*u,W=t+2*F,H=t+F+B;return{W,H,ox:F,oy:B,w:1,els:[Fp(rr(0,0,W,H,9*u),c),Lb(W/2,B/2,W*.86,B*.5,x)]}}},
+cor:{n:'Corners',g:(t,c)=>{const u=t/100,F=9*u,W=t+2*F,a=F*.45,l=18*u,w=W-a;return{W,H:W,ox:F,oy:F,els:[Sp(`M${a+l} ${a}H${a}V${a+l}M${w-l} ${a}H${w}V${a+l}M${a+l} ${w}H${a}V${w-l}M${w-l} ${w}H${w}V${w-l}`,c,3*u)]}}},
+pill:{n:'Pill tag',g:(t,c,x)=>{const u=t/100,F=5*u,W=t+2*F,p=14*u,pw=W*.6;return{W,H:W+p/2,ox:F,oy:F,els:[Sp(rr(F/2,F/2,t+F,t+F,7*u),c,F),Fp(rr((W-pw)/2,W-p/2,pw,p,p/2),c),Lb(W/2,W,pw*.86,p*.55,x)]}}},
+bub:{n:'Speech',g:(t,c,x)=>{const u=t/100,F=5*u,W=t+2*F,B=17*u,k=6*u,y=B+k;return{W,H:y+W,ox:F,oy:y+F,els:[Fp(rr(0,0,W,B,7*u),c),Fp(`M${W/2-k} ${B-1}H${W/2+k}L${W/2} ${y}Z`,c),Sp(rr(F/2,y+F/2,t+F,t+F,6*u),c,F),Lb(W/2,B/2,W*.86,B*.5,x)]}}},
+arw:{n:'Pointer',g:(t,c,x)=>{const u=t/100,F=5*u,W=t+2*F,B=17*u,k=6*u,y=W+k;return{W,H:y+B,ox:F,oy:F,els:[Sp(rr(F/2,F/2,t+F,t+F,6*u),c,F),Fp(`M${W/2-k} ${y+1}H${W/2+k}L${W/2} ${W}Z`,c),Fp(rr(0,y,W,B,7*u),c),Lb(W/2,y+B/2,W*.86,B*.5,x)]}}},
+tkt:{n:'Ticket',g:(t,c,x)=>{const u=t/100,F=6*u,W=t+2*F,d=W,B=19*u,H=d+B,r=4*u,R=8*u;
+ return{W,H,ox:F,oy:F,w:1,els:[Fp(`M${R} 0H${W-R}A${R} ${R} 0 0 1 ${W} ${R}V${d-r}A${r} ${r} 0 0 0 ${W} ${d+r}V${H-R}A${R} ${R} 0 0 1 ${W-R} ${H}H${R}A${R} ${R} 0 0 1 0 ${H-R}V${d+r}A${r} ${r} 0 0 0 0 ${d-r}V${R}A${R} ${R} 0 0 1 ${R} 0Z`,c),Sp(`M${r+3*u} ${d}H${W-r-3*u}`,x,.9*u,[1.5*u,3.5*u]),Lb(W/2,d+B/2,W*.8,B*.5,x)]}}},
+phn:{n:'Phone',g:(t,c,x)=>{const u=t/100,F=7*u,W=t+2*F,H=W+12*u;return{W,H,ox:F,oy:12*u,w:1,els:[Fp(rr(0,0,W,H,13*u),c),Fp(rr(W/2-9*u,4.5*u,18*u,3*u,1.5*u),x),Fp(rr(W/2-10*u,H-6.5*u,20*u,2.5*u,1.25*u),x)]}}},
+bag:{n:'Shopping bag',g:(t,c,x)=>{const u=t/100,F=6*u,B=16*u,y=17*u,W=t+2*F,H=y+F+t+B;return{W,H,ox:F,oy:y+F,w:1,els:[Sp(`M${W*.3} ${y}V${8*u}A${W*.2} ${6*u} 0 0 1 ${W*.7} ${8*u}V${y}`,c,2.6*u),Fp(rr(0,y,W,H-y,6*u),c),Lb(W/2,H-B/2,W*.8,B*.5,x)]}}},
+gft:{n:'Gift',g:(t,c,x)=>{const u=t/100,F=6*u,B=16*u,y=20*u,W=t+2*F,H=y+F+t+B,m=W/2,bow=s=>`M${m} ${y}C${m+s*4*u} ${y-24*u} ${m+s*26*u} ${y-14*u} ${m+s*16*u} ${y-u}Z`;
+ return{W,H,ox:F,oy:y+F,w:1,els:[Fp(bow(1),c),Fp(bow(-1),c),Fp(rr(0,y,W,H-y,6*u),c),Fp(ci(m,y,4*u),x),Lb(m,H-B/2,W*.8,B*.5,x)]}}},
+cup:{n:'Coffee cup',g:(t,c,x)=>{const u=t/100,F=6*u,B=16*u,y=17*u,W=t+2*F,Hb=F+t+B,H=y+Hb+5*u,sw=m=>Sp(`M${m} ${15*u}q${-4*u} ${-3.5*u} 0 ${-7*u}t0 ${-7*u}`,c,2*u);
+ return{W:W+16*u,H,ox:F,oy:y+F,w:1,els:[sw(W*.3),sw(W*.5),sw(W*.7),Sp(`M${W} ${y+14*u}h${5*u}a${8*u} ${8*u} 0 0 1 0 ${16*u}h${-5*u}`,c,3.4*u),Fp(rr(0,y,W,Hb,9*u),c),Fp(rr(0,y+Hb+1.5*u,W+16*u,3.5*u,1.75*u),c),Lb(W/2,y+Hb-B/2,W*.8,B*.5,x)]}}},
+chf:{n:'Chef',g:(t,c,x)=>{const u=t/100,F=6*u,B=16*u,y=28*u,W=t+2*F,H=y+F+t+B,m=W/2;
+ return{W,H,ox:F,oy:y+F,w:1,els:[Fp(ci(m-.17*W,y-13*u,8.5*u),c),Fp(ci(m+.17*W,y-13*u,8.5*u),c),Fp(ci(m,y-18*u,10*u),c),Fp(rr(m-.24*W,y-12*u,.48*W,13*u,2*u),c),Fp(rr(0,y,W,H-y,7*u),c),Lb(m,H-B/2,W*.8,B*.5,x)]}}},
+rib:{n:'Ribbon',g:(t,c,x)=>{const u=t/100,F=5*u,W=t+2*F,h=15*u,y=W-3*u;return{W,H:y+h,ox:F,oy:F,els:[Sp(rr(F/2,F/2,t+F,t+F,6*u),c,F),Fp(`M0 ${y}H${W}L${W-6*u} ${y+h/2}L${W} ${y+h}H0L${6*u} ${y+h/2}Z`,c),Lb(W/2,y+h/2,W*.7,h*.55,x)]}}},
+stp:{n:'Stamp',g:(t,c)=>{const u=t/100,F=9*u,W=t+2*F;return{W,H:W,ox:F,oy:F,w:1,els:[Fp(scal(W,Math.round(W/(7*u)),2.2*u),c)]}}},
+cpn:{n:'Coupon',g:(t,c,x)=>{const u=t/100,F=6*u,W=t+2*F,p=13*u,pw=W*.62,y=p/2;return{W,H:y+W,ox:F,oy:y+F,els:[Sp(rr(u,y+u,W-2*u,W-2*u,7*u),c,2*u,[2*u,4.5*u]),Fp(rr((W-pw)/2,0,pw,p,p/2),c),Lb(W/2,y,pw*.86,p*.55,x)]}}},
+tag:{n:'Hang tag',g:(t,c,x)=>{const u=t/100,F=6*u,B=16*u,y=26*u,W=t+2*F,H=y+F+t+B;return{W,H,ox:F,oy:y+F,w:1,els:[Fp(rr(0,0,W,H,9*u)+ci(W/2,12*u,4*u),c,1),Lb(W/2,H-B/2,W*.8,B*.5,x)]}}},
+mon:{n:'Monitor',g:(t,c,x)=>{const u=t/100,F=6*u,W=t+2*F,Hb=t+F+9*u,m=W/2;return{W,H:Hb+12*u,ox:F,oy:F,w:1,els:[Fp(rr(0,0,W,Hb,7*u),c),Fp(`M${m-6*u} ${Hb-1}h${12*u}v${9*u}h${-12*u}Z`,c),Fp(rr(m-18*u,Hb+8*u,36*u,4*u,2*u),c),Fp(ci(m,Hb-4.5*u,1.3*u),x)]}}}
+};
+FD.scan={...FD.line,n:'Scan line'};FD.badge={...FD.pill,n:'Badge'};FD.stack={...FD.tkt,n:'Stacked'};
+$('#fr').innerHTML=Object.entries(FD).map(([k,d])=>`<option value="${k}">${d.n}</option>`).join('');
+function FR(t){return(FD[$('#fr').value]||FD.none).g(t,$('#frc').value,$('#frx').value)}
+function fit(e,tx){sc.font='700 100px '+FF;return Math.min(e.h,e.w/((sc.measureText(tx).width||1)/100))}
+function dF(x,f,t){const tx=$('#frt').value.trim();
+ for(const e of f.els){
+  if(e.tx){if(!tx)continue;x.fillStyle=e.f;x.font=`700 ${fit(e,tx)}px ${FF}`;x.textAlign='center';x.textBaseline='middle';x.fillText(tx,e.cx,e.cy);continue}
+  const p=new Path2D(e.d);
+  if(e.s){x.strokeStyle=e.s;x.lineWidth=e.w;x.lineCap=x.lineJoin='round';x.setLineDash(e.dash||[]);x.stroke(p);x.setLineDash([])}
+  else{x.fillStyle=e.f;x.fill(p,e.eo?'evenodd':'nonzero')}}
+ if(f.w&&$('#tr').checked){x.fillStyle='#fff';x.fill(new Path2D(rr(f.ox,f.oy,t,t,$('#rad').value/100*t)))}}
+function fSvg(f,t,th){const tx=$('#frt').value.trim();let s='';
+ for(const e of f.els){
+  if(e.tx){if(th)s+=`<rect x="${e.cx-e.w*.3}" y="${e.cy-e.h*.17}" width="${e.w*.6}" height="${e.h*.34}" rx="${e.h*.17}" fill="${e.f}" opacity=".85"/>`;else if(tx)s+=`<text x="${e.cx}" y="${e.cy}" font-size="${fit(e,tx)}" font-weight="700" font-family="${FF}" fill="${e.f}" text-anchor="middle" dominant-baseline="central">${xe(tx)}</text>`;continue}
+  s+=e.s?`<path d="${e.d}" fill="none" stroke="${e.s}" stroke-width="${e.w}" stroke-linecap="round" stroke-linejoin="round"${e.dash?` stroke-dasharray="${e.dash}"`:''}/>`:`<path d="${e.d}" fill="${e.f}"${e.eo?' fill-rule="evenodd"':''}/>`}
+ return s+(f.w&&!th&&$('#tr').checked?`<path fill="#fff" d="${rr(f.ox,f.oy,t,t,$('#rad').value/100*t)}"/>`:'')}
+function frT(v){if(v=='none')return'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 6l12 12" stroke="currentColor" stroke-width="2"/></svg>';
+ const f=FD[v].g(100,'currentColor','#fff'),a=f.ox,b=f.oy,q=(i,j)=>`<rect x="${a+i}" y="${b+j}" width="22" height="22" rx="5" fill="none" stroke="currentColor" stroke-width="6" opacity=".4"/>`;
+ return `<svg viewBox="0 0 ${f.W} ${f.H}" aria-hidden="true">${fSvg(f,100,1)}<rect x="${a}" y="${b}" width="100" height="100" rx="5" style="fill:var(--in)"/>${q(8,8)+q(70,8)+q(8,70)}<rect x="${a+40}" y="${b+40}" width="20" height="20" rx="4" fill="currentColor" opacity=".25"/></svg>`}
+const lm=(t,lg)=>{const p=$('#lpd').value/100*lg,w=lg-2*p,tx=$('#ltx').value.trim(),n=[...tx].length||1;return{o:t/2-lg/2,p,s:$('#lsh').value,w,tx,fz:w*Math.min(.62,.95/(n*.7))}};
+function logo(x,t,lg,tr,bg){const{o,p,s,w,tx,fz}=lm(t,lg);if($('#lbk').checked){x.fillStyle=tr?'#fff':bg;x.fill(new Path2D(box(o,o,lg,s)))}
+ x.save();x.clip(new Path2D(box(o+p,o+p,w,s)));
+ if(logoImg){const k=(s=='ci'?Math.max:Math.min)(w/logoImg.width,w/logoImg.height);x.drawImage(logoImg,t/2-logoImg.width*k/2,t/2-logoImg.height*k/2,logoImg.width*k,logoImg.height*k)}
+ else{x.fillStyle=$('#lfc').value;x.fillRect(o+p,o+p,w,w);x.fillStyle=$('#ltc').value;x.font=`700 ${fz}px ${FF}`;x.textAlign='center';x.textBaseline='middle';x.fillText(tx,t/2,t/2)}
+ x.restore()}
+function lgS(t,lg){if(!lg)return{d:'',b:''};const{o,p,s,w,tx,fz}=lm(t,lg);
+ return{d:`<clipPath id="lc"><path d="${box(o+p,o+p,w,s)}"/></clipPath>`,b:($('#lbk').checked?`<path fill="${$('#tr').checked?'#fff':$('#bg').value}" d="${box(o,o,lg,s)}"/>`:'')+`<g clip-path="url(#lc)">`+(logoImg?`<image href="${logoData}" x="${o+p}" y="${o+p}" width="${w}" height="${w}" preserveAspectRatio="xMidYMid ${s=='ci'?'slice':'meet'}"/>`:`<rect x="${o+p}" y="${o+p}" width="${w}" height="${w}" fill="${$('#lfc').value}"/><text x="${t/2}" y="${t/2}" font-size="${fz}" font-weight="700" font-family="${FF}" fill="${$('#ltc').value}" text-anchor="middle" dominant-baseline="central">${xe(tx)}</text>`)+'</g>'}}
+function paint(c,px,reveal){const{T:t,lg}=geo(),f=FR(t),tr=$('#tr').checked,bg=$('#bg').value,rad=$('#rad').value/100*t,p=path(reveal),bk=bc();c.width=px;c.height=Math.round(px*f.H/f.W);const x=c.getContext('2d');x.scale(px/f.W,px/f.W);dF(x,f,t);x.translate(f.ox,f.oy);
+ x.clip(new Path2D(rr(0,0,t,t,rad)));
+ if(!tr){x.fillStyle=bg;x.fillRect(0,0,t,t)}
+ if(bgImg){x.save();x.globalAlpha=$('#bgo').value/100;const k=Math.max(t/bgImg.width,t/bgImg.height);x.drawImage(bgImg,t/2-bgImg.width*k/2,t/2-bgImg.height*k/2,bgImg.width*k,bgImg.height*k);x.restore()}
+ x.fillStyle=fs(x,t);x.fill(new Path2D(p.d),'evenodd');
+ x.fillStyle=$('#ceo').checked?$('#ce').value:fs(x,t);x.fill(new Path2D(p.e),'evenodd');
+ x.fillStyle=bk||fs(x,t);x.fill(new Path2D(p.b),'evenodd');
+ if(lg&&reveal>.6)logo(x,t,lg,tr,bg)}
+function svgStr(){const{T:t,lg}=geo(),f=FR(t),tr=$('#tr').checked,sz=+$('#size').value,g=gr(t),a=$('#c1').value,rad=$('#rad').value/100*t,q=path(1),bg=$('#bg').value,bk=bc(),L=lgS(t,lg),
+ st=`<stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${$('#c2').value}"/>`,
+ def=g.k=='l'?`<linearGradient id="g" gradientUnits="userSpaceOnUse" x1="${g.x1}" y1="${g.y1}" x2="${g.x2}" y2="${g.y2}">${st}</linearGradient>`:g.k=='r'?`<radialGradient id="g" gradientUnits="userSpaceOnUse" cx="${g.c}" cy="${g.c}" r="${g.r}">${st}</radialGradient>`:'',
+ fl=g.k=='s'?a:'url(#g)',fe=$('#ceo').checked?$('#ce').value:fl,fb=bk||fl;
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${f.W} ${f.H}" width="${sz}" height="${Math.round(sz*f.H/f.W)}"><defs>${def}<clipPath id="k"><path d="${rr(0,0,t,t,rad)}"/></clipPath>${L.d}</defs>${fSvg(f,t)}<g transform="translate(${f.ox} ${f.oy})"><g clip-path="url(#k)">${tr?'':`<rect width="${t}" height="${t}" fill="${bg}"/>`}${bgImg?`<image href="${bgData}" width="${t}" height="${t}" preserveAspectRatio="xMidYMid slice" opacity="${$('#bgo').value/100}"/>`:''}<path fill="${fl}" fill-rule="evenodd" d="${q.d}"/><path fill="${fe}" fill-rule="evenodd" d="${q.e}"/><path fill="${fb}" fill-rule="evenodd" d="${q.b}"/>${L.b}</g></g></svg>`}
+function play(){cancelAnimationFrame(raf);if(matchMedia('(prefers-reduced-motion:reduce)').matches)return paint(cv,PX,1);
+ const t0=performance.now();(function s(now){const k=Math.min((now-t0)/1000,1);paint(cv,PX,1-Math.pow(1-k,3));if(k<1)raf=requestAnimationFrame(s)})(t0)}
+const lum=h=>{const n=parseInt(h.slice(1),16);return(.2126*(n>>16)+.7152*(n>>8&255)+.0722*(n&255))/255};
+const rl=h=>{const n=parseInt(h.slice(1),16);return[n>>16,n>>8&255,n&255].map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0)};
+const cr=(a,b)=>{const x=rl(a),y=rl(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+async function decodeQ(c){let ok=false;
+ if('BarcodeDetector' in window){try{ok=true;const r=await new BarcodeDetector({formats:['qr_code']}).detect(c);if(r.length)return r[0].rawValue}catch(e){}}
+ if(window.jsQR){ok=true;try{const d=c.getContext('2d').getImageData(0,0,c.width,c.height),r=jsQR(d.data,c.width,c.height,{inversionAttempts:'attemptBoth'});if(r)return r.data}catch(e){}}
+ return ok?'':null}
+async function scanCheck(px){const c=document.createElement('canvas');paint(c,px,1);const w=document.createElement('canvas');w.width=c.width;w.height=c.height;const g=w.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,w.width,w.height);g.drawImage(c,0,0);return decodeQ(w)}
+let vTok=0,vTm=0;
+function vfy(d){clearTimeout(vTm);const k=++vTok;vTm=setTimeout(async()=>{
+ let r=null;try{for(const px of [640,400,800]){r=await scanCheck(px);if(r===null||k!==vTok||r===d)break}}catch(e){r=null}
+ if(k!==vTok)return;const el=$('#sc'),v=$('#scv');if(!v)return;
+ if(r===null){v.remove();return}
+ if(r===d){v.textContent=el.classList.contains('ok')?'Scan test passed ✓ A decoder read this exact content.':'A decoder could still read it, but a phone camera may struggle. Fix the warnings above.';return}
+ el.className='sc bd';const b=el.querySelector('b');if(b)b.textContent='Failed the scan test';
+ v.textContent=r?'A decoder read different content. Try higher contrast or a simpler style.':'A decoder could not read this code. Phone cameras are often more forgiving, so test with your phone before printing. If it fails there too, add contrast, lower the logo size or use a simpler shape.'},350)}
+function chk(n){const el=$('#sc'),bad=[],wn=[],tr=$('#tr').checked;
+ if(!tr){const bg=$('#bg').value,cs=[$('#c1').value];if($('#gt').value!='s')cs.push($('#c2').value);if($('#ceo').checked)cs.push($('#ce').value);if($('#cbo').checked)cs.push($('#cb').value);
+  const r=Math.min(...cs.map(c=>cr(c,bg))),inv=cs.some(c=>lum(c)>lum(bg));
+  if(r<3)bad.push(`Contrast is very low (${r.toFixed(1)}:1). Make the code darker or the background lighter.`);
+  else if(r<4.5)wn.push(`Contrast is a bit low (${r.toFixed(1)}:1). Aim for 4.5:1 or more.`);
+  if(inv)wn.push('Code is lighter than the background. Some scanners fail on inverted codes.')}
+ if(hasLogo()){const sd=$('#lsz').value/100*($('#lbk').checked?1:1-2*$('#lpd').value/100),a=sd*sd,lim=n<=25?.04:.065;
+  if(a>lim*1.6)bad.push(`Logo covers about ${(a*100).toFixed(1)}% of the code. Lower the logo size.`);
+  else if(a>lim)wn.push(`Logo covers about ${(a*100).toFixed(1)}% of the code. Smaller is safer${n<=25?', especially for short content':''}.`)}
+ if(bgImg&&$('#bgo').value>50)wn.push('Background image is strong. Lower its opacity so the code stands out.');
+ const lv=bad.length?'bd':wn.length?'wn':'ok',all=bad.concat(wn);
+ el.className='sc '+lv;el.hidden=false;
+ el.innerHTML=lv=='ok'?'<b>Looks scannable ✓</b>'+(tr?'Transparent background: contrast depends on where you place it.':'Contrast and logo size are fine.'):`<b>${lv=='bd'?'Likely hard to scan':'Might be hard to scan'}</b><ul>${all.map(t=>`<li>${t}</li>`).join('')}</ul>`;el.insertAdjacentHTML('beforeend','<div class="sv" id="scv">Checking scan…</div>')}
+function gen(anim){sync();bkInfo();const frameState=$('#msg');if(frameState&&frameState.style.display!=='none'){frameState.style.display='flex';frameState.innerHTML='<span class="state-kicker">Creating your QR</span><strong class="state-title">Preparing your code…</strong><div class="state-progress" role="progressbar" aria-label="Creating QR"><i></i></div>'}$('#dsv').textContent=$('#ds').value+'%';$('#verv').textContent=+$('#ver').value?'min. v'+$('#ver').value:'auto';$('#mv').textContent=$('#margin').value;$('#radv').textContent=$('#rad').value+'%';$('#lszv').textContent=$('#lsz').value+'%';const d=encode(),msg=$('#msg');cancelAnimationFrame(raf);
+ $('#sc').hidden=true;
+ if(!d){cur=null;msg.style.display='flex';msg.innerHTML='<span class="state-kicker">Waiting for content</span><strong class="state-title">Your QR will appear here</strong><span class="state-detail">Add content on the left to generate a scannable code.</span>';$('#info').textContent='';return}
+ try{const ec=hasLogo()?'H':$('#ec').value,v0=+$('#ver').value;let q=null;for(let t=v0;t<=40&&!q;t++){try{const z=qrcode(t,ec);z.addData(d,'Byte');z.make();q=z}catch(e){if(!v0)break}}if(!q)throw 0;cur=q}
+ catch(e){cur=null;msg.style.display='flex';msg.innerHTML='<span class="state-kicker">QR cannot be generated</span><strong class="state-title">We couldn\'t generate this QR.</strong><span class="state-detail">Too much data for one code. Shorten the content or lower error correction.</span>';$('#info').textContent='';return}
+ msg.style.display='none';const n=cur.getModuleCount();chk(n);vfy(d);
+ $('#info').textContent=`Version ${(n-17)/4}, ${n}×${n} blocks, ${new TextEncoder().encode(d).length} bytes.`+(hasLogo()?' Error correction is set to High so the logo stays scannable.':'');
+ anim?play():paint(cv,PX,1)}
+const sched=()=>{clearTimeout(tm);tm=setTimeout(()=>{try{gen(false)}catch(error){console.error('[v0] QR generation update failed',error);cur=null}},140)};
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2600)}
+$('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;type=b.dataset.t;tabs();gen(true);};
+$('#fields').addEventListener('input',e=>{try{const k=e.target.dataset.k;if(!k)return;vals[k]=e.target.type=='checkbox'?e.target.checked:e.target.value;if(type=='url'&&k=='url'){const status=$('#url-status');if(status){try{new URL(vals.url);status.textContent='✓ Valid URL';status.className='field-status valid'}catch{status.textContent='! This doesn\'t look like a valid URL.';status.className='field-status invalid'}}}sched()}catch(error){console.error('[v0] Editor input update failed',error)}});
+['#frt','#frf','#frx','#frc','#frp','#frr'].forEach(id=>$(id)?.addEventListener('input',()=>{if(id=='#frt')$('#frame-live-label').textContent=$(id).value||'SCAN ME';if(id=='#frc')document.documentElement.style.setProperty('--frame-accent',$(id).value);if(id=='#frx')$('#frame-live-label').style.color=$(id).value;if(id=='#frp')$('#frame-live-preview')?.style.setProperty('padding',$(id).value+'px');if(id=='#frr')$('#frame-live-code')?.style.setProperty('border-radius',$(id).value+'px');if($(id+'v'))$(id+'v').textContent=$(id).value+(id.includes('p')||id.includes('r')?'px':'');sched()}));
+$('#style').addEventListener('input',e=>{if(e.target.type!='file')sched();if(['color','range'].includes(e.target.type))updateGradientPreview();if(e.target.type=='color'){const h=e.target.value,n=parseInt(h.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255,m=Math.max(r,g,b),l=Math.min(r,g,b),d=m-l,s=(m+l)/2,hue=d?m==r?((g-b)/d+6)%6:m==g?(b-r)/d+2:(r-g)/d+4:0;$('#color-readout').textContent=`${h.toUpperCase()} · RGB ${r}, ${g}, ${b} · HSL ${Math.round(hue*60)}°, ${Math.round(d?d/(1-Math.abs(2*s-1))*100:0)}%, ${Math.round(s*100)}%`}});
+$('#eyedrop').onclick=async()=>{if(!window.EyeDropper)return toast('Eyedropper is not supported here');try{const r=await new EyeDropper().open();$('#c1').value=r.sRGBHex;$('#c1').dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}};
+$('#pals').innerHTML=P.map((p,i)=>`<button data-i="${i}" data-n="${p[0]}" title="${p[0]}" aria-label="${p[0]} colors" aria-pressed="false" style="--b:${p[3]}"><i style="background:linear-gradient(135deg,${p[1]},${p[2]})"></i></button>`).join('');
+$('#pals').onclick=e=>{const b=e.target.closest('button');if(!b)return;const p=P[b.dataset.i];$('#gt').value=p[1]==p[2]?'s':'l';$('#ceo').checked=false;$('#c1').value=p[1];$('#c2').value=p[2];$('#bg').value=p[3];$('#tr').checked=false;gen(true)};
+function loadImg(id,cb){$(id).onchange=e=>{const f=e.target.files[0];if(!f){cb(null,'');return gen(false)}if(id=='#logo'){if(f.size>5*1024*1024){toast('Logo must be 5 MB or smaller');e.target.value='';return}if(!f.type.startsWith('image/')||f.type==='image/svg+xml'){toast(f.type==='image/svg+xml'?'SVG uploads are disabled for safety':'Choose an image file');e.target.value='';return}$('#logo-status').textContent='READY';$('#logo-preview').hidden=false;$('#logo-preview-name').textContent=f.name;$('#logo-drop').classList.add('has-logo')}const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{if(id=='#logo'){$('#logo-preview-img').src=r.result}cb(i,r.result);gen(true)};i.src=r.result};r.readAsDataURL(f)}}
+ loadImg('#logo',(i,d)=>{logoImg=i;logoData=d});loadImg('#bgi',(i,d)=>{bgImg=i;bgData=d});
+['#lsz','#lpd','#lbo'].forEach(id=>$(id).addEventListener('input',()=>{$(id+'v').textContent=$(id).value+(id=='#lbo'?'%':'%');gen(true)}));$('#lbg').addEventListener('input',()=>gen(true));
+ ['dragenter','dragover'].forEach(e=>$('#logo-drop').addEventListener(e,ev=>{ev.preventDefault();$('#logo-drop').classList.add('is-dragging')}));['dragleave','drop'].forEach(e=>$('#logo-drop').addEventListener(e,ev=>{ev.preventDefault();$('#logo-drop').classList.remove('is-dragging')}));$('#logo-drop').addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(!f)return;const input=$('#logo');const dt=new DataTransfer();dt.items.add(f);input.files=dt.files;input.dispatchEvent(new Event('change',{bubbles:true}))});$('#logo-replace').onclick=()=>$('#logo').click();
+$('#lrm').onclick=()=>{logoImg=null;logoData='';$('#logo').value='';$('#ltx').value='';$('#logo-status').textContent='OPTIONAL';$('#logo-preview').hidden=true;$('#logo-drop').classList.remove('has-logo');gen(true)};
+$('#bgx').onclick=()=>{bgImg=null;bgData='';$('#bgi').value='';gen(false)};
+$('#badge-presets').innerHTML=['QR','SALE','MENU','WEB','VIP'].map(e=>`<button type="button">${e}</button>`).join('');$('#badge-presets').onclick=e=>{const b=e.target.closest('button');if(b){logoImg=null;logoData='';$('#logo').value='';$('#ltx').value=b.textContent;gen(true)}};$('#emo').innerHTML=['★','😀','⚡','☕','📍','✉','☎','🌐','Wi-Fi'].map(e=>`<button type="button">${e}</button>`).join('');
+$('#emo').onclick=e=>{const b=e.target.closest('button');if(b){logoImg=null;logoData='';$('#logo').value='';$('#ltx').value=b.textContent;gen(true)}};
+
+function out(){if(!cur)return null;const c=document.createElement('canvas');paint(c,+$('#size').value,1);return c}
+function save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+const dl=(m,n)=>{const c=out();if(!c)return;const button=$('#dlb');if(button){button.disabled=true;button.dataset.label=button.textContent;button.innerHTML='<span class="export-loading-label">Preparing '+(m=='svg'?'SVG':'image')+'…</span>'}let o=c;if(m=='jpeg'){o=document.createElement('canvas');o.width=c.width;o.height=c.height;const g=o.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,o.width,o.height);g.drawImage(c,0,0)}o.toBlob(async b=>{if(m=='png'){try{b=await embed(b)}catch(e){}}save(b,'qr-code.'+n);if(button){button.disabled=false;button.textContent=button.dataset.label||'Download';}toast(n.toUpperCase()+' downloaded'+(m=='png'?'. Editable in QREE':''))},'image/'+m,.95)};
+const exportCenter=$('#export-center');const advancedExportButton=document.createElement('button');advancedExportButton.type='button';advancedExportButton.className='advanced-export-trigger';advancedExportButton.id='advanced-export-trigger-live';advancedExportButton.textContent='Advanced export settings';$('#dlb')?.insertAdjacentElement('afterend',advancedExportButton);advancedExportButton.onclick=()=>{exportCenter.showModal();exportFormat.value='svg';exportDownload.textContent='Download SVG';updateExportPreview()};if($('#advanced-export-trigger'))$('#advanced-export-trigger').onclick=()=>{exportCenter.showModal();exportFormat.value='svg';exportDownload.textContent='Download SVG';updateExportPreview()};document.querySelectorAll('#export-center .export-preview').forEach((node,index)=>{if(index>0)node.remove()});const exportFormat=$('#export-format'),exportResolution=$('#export-resolution'),exportCustom=$('#export-custom-wrap'),exportDownload=$('#export-download');const exportLabel=()=>exportFormat.value=='pdf'?'Export PDF':'Download '+exportFormat.value.toUpperCase();const updateExportPreview=()=>{const size=exportResolution.value==='custom'?Math.max(128,Math.min(8192,+$('#export-custom-size').value||1024)):+exportResolution.value;$('#export-dimensions').textContent=size+' × '+size+' px';$('#export-format-label').textContent=exportFormat.value.toUpperCase();$('#export-quality-label').textContent=+$('#export-quality').value>=85?'High':+$('#export-quality').value>=65?'Medium':'Standard';$('#export-size').textContent=Math.max(1,Math.round(size*size*(exportFormat.value==='svg'?0.002:0.012)))+' KB';const art=$('#export-preview-art');if(art&&cur){art.replaceChildren();const canvas=out();if(canvas){const img=new Image();img.alt='';img.src=canvas.toDataURL();art.append(img)}}};$('#tb-export').onclick=()=>{exportCenter.showModal();exportFormat.value='svg';exportDownload.textContent='Download SVG';updateExportPreview()};$('#export-png').onclick=()=>{exportFormat.value='png';exportDownload.textContent='Download PNG';updateExportPreview();$('#export-download').click()};$('#export-copy').onclick=()=>$('#cp').click();$('#export-print').onclick=()=>$('#prt').click();$('#export-close').onclick=()=>exportCenter.close();exportCenter.addEventListener('click',e=>{if(e.target===exportCenter)exportCenter.close()});exportFormat.onchange=()=>{exportDownload.textContent=exportLabel();updateExportPreview();exportFormat.blur()};exportResolution.onchange=()=>{exportCustom.hidden=exportResolution.value!=='custom';updateExportPreview();exportResolution.blur()};$('#export-custom-size').oninput=updateExportPreview;$('#export-quality').oninput=e=>{$('#export-quality-value').textContent=e.target.value+'%';updateExportPreview()};exportDownload.onclick=()=>{const size=exportResolution.value==='custom'?Math.max(128,Math.min(8192,+$('#export-custom-size').value||1024)): +exportResolution.value;$('#size').value=String([512,1024,2048,4096].includes(size)?size:1024);const f=exportFormat.value;if(f==='pdf'){$('#prt').click();exportCenter.close();return}document.querySelector(`.fmt[data-f="${f}"]`)?.click();$('#dlb').click();exportCenter.close()};
+let FMT='png';const FN={png:'PNG',svg:'SVG',jpg:'JPG',webp:'WebP'};
+document.querySelectorAll('.fmt').forEach(b=>b.onclick=()=>{FMT=b.dataset.f;document.querySelectorAll('.fmt').forEach(x=>x.setAttribute('aria-checked',x==b));$('#dlb').textContent='Download '+FN[FMT]});
+$('#dlb').onclick=()=>FMT=='svg'?dlSvg():FMT=='jpg'?dl('jpeg','jpg'):dl(FMT,FMT);
+$('#prt').onclick=()=>{const c=out();if(!c)return;const w=open('');if(!w)return toast('Pop-up blocked');w.document.write(`<img src="${c.toDataURL()}" style="max-width:100%"><script>onload=()=>print()<\/script>`);w.document.close()};
+$('#tst').onclick=async()=>{if(!cur)return;let r;try{r=await scanCheck(800)}catch(e){r=null}if(r===null)return toast('Scan test is not available. Check your connection and reload.');toast(r?'Scans correctly ✓':'Scan failed. Add contrast or raise error correction')};
+const dlSvg=()=>{if(cur){save(new Blob([svgStr()],{type:'image/svg+xml'}),'qr-code.svg');toast('SVG downloaded')}};
+$('#cp').onclick=()=>{const c=out();if(c)c.toBlob(async b=>{try{await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);toast('Copied to clipboard')}catch(e){toast('Copy is blocked here. Use PNG instead.')}})};
+const bulkState={rows:[],header:false};
+ function parseBulkLine(line){const out=[];let cell='',quoted=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(quoted&&line[i+1]==='"'){cell+='"';i++}else quoted=!quoted}else if(ch===','&&!quoted){out.push(cell.trim());cell=''}else cell+=ch}out.push(cell.trim());return out}
+ function parseBulkText(text){return text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(parseBulkLine)}
+ function bulkRenderPreview(){const box=$('#bk-preview');if(!bulkState.rows.length){box.hidden=true;box.innerHTML='';return}const fields=T[type]?.f?.map(x=>x[1])||['Content'];const rows=bulkState.rows;box.hidden=false;box.innerHTML=`<div class="bulk-preview-head"><strong>Data preview</strong><span>${rows.length} rows</span></div><div class="bulk-table-wrap"><table><thead><tr><th>#</th>${fields.map(x=>`<th>${x}</th>`).join('')}<th>Status</th></tr></thead><tbody>${rows.map((r,i)=>{const valid=!!bulkEncode(r);return `<tr><td>${i+1}</td>${fields.map((_,j)=>`<td>${esc(r[j]||'—')}</td>`).join('')}<td><span class="bulk-status ${valid?'valid':'invalid'}">${valid?'Ready':'Missing content'}</span></td></tr>`}).join('')}</tbody></table></div>`}
+ function bulkPreview(){const raw=parseBulkText($('#bkt').value);const rows=$('#bkh').checked?raw.slice(1):raw;bulkState.header=$('#bkh').checked;bulkState.rows=rows.slice(0,200);const info=$('#bki');if(!rows.length){info.textContent='Add one URL or content row per line.';bulkRenderPreview();return}const extra=rows.length>200?` Showing the first 200 of ${rows.length}.`:'';const invalid=bulkState.rows.filter(row=>!bulkEncode(row)).length;info.innerHTML=invalid?`<div class="bulk-error-state"><span><strong>${invalid} row${invalid===1?'':'s'} need attention.</strong><br>Review missing content before generating.</span><a href="#bk-preview">Review errors →</a></div>`:`${bulkState.rows.length} row${bulkState.rows.length===1?'':'s'} ready${extra}`;bulkRenderPreview();}
+ function bulkValues(cols){const keys=T[type]?.f?.map(x=>x[0])||['url'];const values={};keys.forEach((key,i)=>{const field=T[type].f.find(x=>x[0]===key);values[key]=cols[i]||field?.[3]||''});return values}
+ function bulkEncode(cols){const values=bulkValues(cols);return T[type]?.e?T[type].e(values):cols[0]||''}
+ function bulkName(cols,index){const fallback=`qr-${String(index+1).padStart(3,'0')}`;const name=cols[(T[type]?.f?.length||1)]||fallback;return name.replace(/[^a-z0-9_-]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,60)||fallback}
+ function bulkSvg(q,size=1024){const n=q.getModuleCount(),cell=size/n;let p='';for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(q.isDark(y,x))p+=`<rect x="${(x*cell).toFixed(2)}" y="${(y*cell).toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}"/>`;return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}"><rect width="100%" height="100%" fill="${$('#bg').value}"/><g fill="${$('#c1').value}">${p}</g></svg>`}
+ function bulkCrc(bytes){let c=4294967295;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?3988292384:0)}return (c^4294967295)>>>0}
+ function bulkZip(files){const enc=new TextEncoder(),local=[],central=[];let offset=0;for(const file of files){const name=enc.encode(file.name),data=file.data,crc=bulkCrc(data),h=new Uint8Array(30+name.length),v=new DataView(h.buffer);v.setUint32(0,67324752,true);v.setUint16(4,20,true);v.setUint16(6,0,true);v.setUint16(8,0,true);v.setUint16(10,0,true);v.setUint16(12,0,true);v.setUint32(14,crc,true);v.setUint32(18,data.length,true);v.setUint32(22,data.length,true);v.setUint16(26,name.length,true);h.set(name,30);local.push(h,data);const c=new Uint8Array(46+name.length),cv=new DataView(c.buffer);cv.setUint32(0,33639248,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0,true);cv.setUint16(10,0,true);cv.setUint16(12,0,true);cv.setUint16(14,0,true);cv.setUint32(16,crc,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,name.length,true);cv.setUint32(42,offset,true);c.set(name,46);central.push(c);offset+=h.length+data.length}const cdOffset=offset,cdSize=central.reduce((n,x)=>n+x.length,0),end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,101010256,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,cdSize,true);ev.setUint32(16,cdOffset,true);const all=[...local,...central,end],size=all.reduce((n,x)=>n+x.length,0),out=new Uint8Array(size);let p=0;for(const part of all){out.set(part,p);p+=part.length}return new Blob([out],{type:'application/zip'})}
+ async function generateBulk(){bulkPreview();if(!bulkState.rows.length)return toast('Add at least one row first');const files=[],format=$('#bkf').value,oldCur=cur,oldVals={...vals},oldType=type,ec=$('#ec').value||'M';$('#bkd').disabled=true;$('#bkd').innerHTML='<span class="state-kicker">Preparing batch</span> '+bulkState.rows.length+' codes…';$('#bkp').hidden=false;for(let i=0;i<bulkState.rows.length;i++){const cols=bulkState.rows[i],data=bulkEncode(cols);if(!data)continue;let q;try{q=qrcode(0,ec);q.addData(data,'Byte');q.make()}catch(e){continue}const name=bulkName(cols,i);if(format==='svg'||format==='both')files.push({name:`${name}.svg`,data:new TextEncoder().encode(bulkSvg(q))});if(format==='png'||format==='both'){cur=q;const canvas=document.createElement('canvas');paint(canvas,1024,1);const blob=await new Promise(r=>canvas.toBlob(r,'image/png'));files.push({name:`${name}.png`,data:new Uint8Array(await blob.arrayBuffer())})}$('#bkp').value=(i+1)/bulkState.rows.length;await new Promise(r=>setTimeout(r,0))}cur=oldCur;Object.assign(vals,oldVals);type=oldType;if(!files.length){$('#bkd').disabled=false;return toast('No valid QR files could be generated')}save(bulkZip(files),`qree-batch-${Date.now()}.zip`);$('#bkd').disabled=false;toast(`${files.length} QR files packaged`)}
+ function bulkStep(step){document.querySelectorAll('[data-bulk-panel]').forEach(p=>p.hidden=p.dataset.bulkPanel!==step);document.querySelectorAll('[data-bulk-step]').forEach(b=>b.classList.toggle('is-active',b.dataset.bulkStep===step));if(step==='configure'){$('#bk-type').textContent=T[type]?.n||type;$('#bk-format-label').textContent=$('#bkf').selectedOptions[0].textContent}if(step==='generate'){$('#bk-summary').textContent=`${bulkState.rows.length} row${bulkState.rows.length===1?'':'s'}`;$('#bk-format-label').textContent=$('#bkf').selectedOptions[0].textContent}}
+ $('#bkt').addEventListener('input',bulkPreview);$('#bkh').addEventListener('change',bulkPreview);$('#bkf').addEventListener('change',()=>{$('#bk-format-label').textContent=$('#bkf').selectedOptions[0].textContent});$('#shp').addEventListener('change',shInfo);$('#shw').addEventListener('input',shInfo);$('#shg').addEventListener('input',shInfo);$('#shn').addEventListener('input',shInfo);$('#shf').addEventListener('change',shInfo);$('#shc').addEventListener('change',shInfo);$('#bkfi').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('#bkt').value=r.result;bulkPreview()};r.readAsText(f)});$('#bk-review').addEventListener('click',()=>{bulkPreview();if(bulkState.rows.length)bulkStep('configure')});$('#bk-configure').addEventListener('click',()=>{if(bulkState.rows.length)bulkStep('generate')});document.querySelectorAll('[data-bulk-step]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.bulkStep==='import'||bulkState.rows.length)bulkStep(b.dataset.bulkStep)}));$('#bkd').addEventListener('click',generateBulk);
+ const O={dot:[['rd','Rounded'],['sq','Square'],['dot','Dots'],['dia','Diamond'],['lf','Leaf'],['st','Star'],['hx','Hex'],['pl','Plus'],['ht','Heart']],eye:[['rd','Rounded'],['sq','Square'],['ci','Circle'],['lf','Leaf']],eyi:[['rd','Rounded'],['sq','Square'],['ci','Circle'],['dia','Diamond'],['lf','Leaf']],gt:[['l','Linear'],['r','Radial'],['s','Solid']],fr:[['none','Minimal'],['line','Border'],['bot','Label below'],['top','Label above'],['cor','Corners'],['pill','Pill tag'],['bub','Speech bubble'],['arw','Pointer'],['tkt','Ticket'],['phn','Phone'],['bag','Shopping bag'],['gft','Gift'],['cup','Coffee cup'],['chf','Chef'],['rib','Ribbon'],['stp','Stamp'],['cpn','Coupon'],['tag','Hang tag'],['mon','Monitor'],['scan','Scan line'],['badge','Badge'],['stack','Stacked']],lsh:[['ci','Circle'],['rd','Rounded square'],['sq','Square'],['bd','Custom badge']]};
+function prev(id,v){const S=(n,d)=>`<svg viewBox="0 0 ${n} ${n}" aria-hidden="true"><path fill-rule="evenodd" d="${d}" fill="url(#pv)"/></svg>`;
+ if(id=='fr')return frT(v);if(id=='lsh')return S(10,box(1,1,8,v));
+ if(id=='dot'){let d='';for(const[x,y]of[[0,0],[2,0],[1,1],[0,2],[2,2]])d+=dp(v,x,y,.92,.04);return S(3,d)}
+ if(id=='eye')return S(7,box(0,0,7,v)+box(1,1,5,v));
+ if(id=='eyi')return S(3,box(0,0,3,v));
+ return `<svg viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" rx="2.5" style="fill:${v=='l'?'url(#pv)':v=='r'?'url(#pr)':'var(--cy)'}"/></svg>`}
+function sync(){document.querySelectorAll('.opts').forEach(el=>{const v=$('#'+el.dataset.for).value;el.querySelectorAll('.opt').forEach(b=>b.setAttribute('aria-checked',b.dataset.v==v))});updateGradientPreview()}
+function updateGradientPreview(){const p=$('#gradient-preview'),label=$('#gradient-preview-label'),angle=+$('#ga').value||0;if(!p)return;const a=$('#c1').value,b=$('#c2').value,k=$('#gt').value;if(k=='s')p.style.background=a;else if(k=='r')p.style.background=`radial-gradient(circle,${a},${b})`;else p.style.background=`linear-gradient(${angle}deg,${a},${b})`;$('#gav').textContent=angle+'°';label.textContent=(k=='s'?'SOLID':k=='r'?'RADIAL':'LINEAR')+(k=='l'?' · '+angle+'°':'')}
+
+for(const id in O){const el=document.querySelector(`.opts[data-for=${id}]`);el.setAttribute('role','radiogroup');
+ el.innerHTML=O[id].map(([v,l])=>`<button type="button" class="opt" role="radio" data-v="${v}">${prev(id,v)}${l}</button>`).join('');
+ el.onclick=e=>{const b=e.target.closest('button');if(!b)return;const sel=$('#'+id);sel.value=b.dataset.v;sel.dispatchEvent(new Event('input',{bubbles:true}));sync()}}
+const SP=[['colors','Colors'],['shape','Shape'],['logo','Logo'],['frame','Frame'],['presets','Presets'],['sheet','Sheet'],['bulk','Bulk']];let pane='colors';
+function stabs(){$('#stabs').innerHTML=SP.map(([k,n])=>`<button data-p="${k}" aria-pressed="${k==pane}">${n}</button>`).join('');document.querySelectorAll('#style .card').forEach(c=>c.hidden=c.dataset.p!=pane)}
+  $('#stabs').onclick=e=>{const b=e.target.closest('button');if(b){pane=b.dataset.p;stabs()}};
+  function openPaneFromHash(){const match=(location.hash||'').match(/pane=([^&]+)/);if(!match)return;const target=SP.some(([key])=>key===match[1])?match[1]:null;if(target){pane=target;stabs();requestAnimationFrame(()=>{const card=document.querySelector(`#style .card[data-p="${target}"]`);card?.scrollIntoView({behavior:'smooth',block:'center'})})}}
+  addEventListener('hashchange',openPaneFromHash);openPaneFromHash();
+const IDS=['c1','c2','bg','gt','ga','ce','ceo','cb','cbo','tr','dot','eye','eyi','ds','ver','margin','rad','ec','lsz','lsh','lpd','lbk','ltx','lfc','ltc','fr','frt','frc','frx','bgo'];
+const getS=()=>Object.fromEntries(IDS.map(i=>{const e=$('#'+i);return[i,e.type=='checkbox'?e.checked:e.value]}));
+const setS=o=>{for(const i in o){const e=$('#'+i);if(e){if(e.type=='checkbox')e.checked=o[i];else e.value=o[i]}}gen(true)};
+const DEF=getS(),B0={ceo:false,cbo:false,tr:false,gt:'l',ds:100,rad:0,fr:'none',frt:'SCAN ME',frx:'#ffffff'};
+const TP=[['Classic',{gt:'s',c1:'#000000',c2:'#000000',bg:'#ffffff',dot:'sq',eye:'sq',eyi:'sq'}],
+['Plasma',{c1:'#3b2bff',c2:'#c026d3',bg:'#ffffff',dot:'rd',eye:'rd',eyi:'ci',fr:'bot',frc:'#3b2bff'}],
+['Sunset',{c1:'#be123c',c2:'#ea580c',bg:'#fff8f1',dot:'dot',eye:'lf',eyi:'dia',fr:'top',frc:'#be123c',frt:'FOLLOW US'}],
+['Neon',{c1:'#5df2ff',c2:'#8b5cff',bg:'#080a1c',dot:'dot',eye:'ci',eyi:'ci',fr:'cor',frc:'#5df2ff'}],
+['Forest',{c1:'#166534',c2:'#65a30d',bg:'#f7fee7',dot:'lf',eye:'lf',eyi:'lf',fr:'line',frc:'#166534'}],
+['Candy',{c1:'#be185d',c2:'#f97316',bg:'#fff1f2',dot:'ht',eye:'rd',eyi:'ci',fr:'bot',frc:'#be185d',frt:'LOVE IT'}],
+['Stars',{c1:'#1e3a8a',c2:'#7c3aed',bg:'#eef2ff',gt:'r',dot:'st',eye:'sq',eyi:'dia'}],
+['Mono tag',{gt:'s',c1:'#111827',bg:'#ffffff',dot:'rd',eye:'rd',eyi:'rd',fr:'bot',frc:'#111827'}]];
+$('#tp').innerHTML=TP.map(([n],i)=>`<button type="button" data-i="${i}">${n}</button>`).join('');
+$('#tp').onclick=e=>{const b=e.target.closest('button');if(b)setS({...B0,...TP[b.dataset.i][1]})};
+window.qreeDB=window.qreeDB||(()=>{const name='qree-workspace',store='projects';let db;const open=()=>db?Promise.resolve(db):new Promise((resolve,reject)=>{const r=indexedDB.open(name,1);r.onupgradeneeded=()=>r.result.createObjectStore(store,{keyPath:'id'});r.onsuccess=()=>{db=r.result;resolve(db)};r.onerror=()=>reject(r.error)});const tx=(mode,fn)=>open().then(d=>new Promise((resolve,reject)=>{const r=fn(d.transaction(store,mode).objectStore(store));r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)}));return{save:p=>tx('readwrite',s=>s.put({...p,id:p.id||crypto.randomUUID(),createdAt:p.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()})),get:id=>tx('readonly',s=>s.get(id)),remove:id=>tx('readwrite',s=>s.delete(id))}})();const SK='qrs2',SMAX=20,HX=/^#[0-9a-f]{6}$/i;let ST=[],stPend='';
+function stClean(o){if(!o||typeof o!='object')return null;const r={};for(const k of IDS){if(!(k in o))continue;const e=$('#'+k),v=o[k];if(!e)continue;
+ if(e.type=='checkbox'){if(typeof v=='boolean')r[k]=v}else if(e.type=='color'){if(typeof v=='string'&&HX.test(v))r[k]=v}
+ else if(e.tagName=='SELECT'){if([...e.options].some(x=>x.value==String(v)))r[k]=String(v)}
+ else if((typeof v=='string'||typeof v=='number')&&String(v).length<=30)r[k]=v}
+ return r}
+function stLoad(){let mig=false;try{let v=JSON.parse(localStorage.getItem(SK)||'null');if(!Array.isArray(v)){v=[];const o=localStorage.getItem('qrs');if(o){v.push({n:'Saved style',s:JSON.parse(o)});mig=true}}
+ ST=v.map(x=>x&&typeof x.n=='string'?{n:x.n.slice(0,30),s:stClean(x.s)}:null).filter(x=>x&&x.s).slice(0,SMAX)}catch(e){ST=[]}if(mig&&ST.length)stPut()}
+function stPut(){try{localStorage.setItem(SK,JSON.stringify(ST));return true}catch(e){toast('Saving is blocked here');return false}}
+function stRender(){const c=v=>HX.test(v||'')?v:'#888888';$('#stl').innerHTML=ST.length?ST.map((x,i)=>`<div class="sti"><i style="background:linear-gradient(135deg,${c(x.s.c1)},${x.s.gt=='s'?c(x.s.c1):c(x.s.c2)});box-shadow:inset 0 0 0 3px ${c(x.s.bg)}"></i><span>${xe(x.n)}</span><button type="button" data-a="l" data-i="${i}">Load</button><button type="button" data-a="d" data-i="${i}">Delete</button></div>`).join(''):'<p class="hint">No saved styles yet.</p>'}
+$('#sav').onclick=()=>{let n=$('#stn').value.trim();if(!n){let k=1;while(ST.some(x=>x.n==='Style '+k))k++;n='Style '+k}
+ const i=ST.findIndex(x=>x.n.toLowerCase()==n.toLowerCase());
+ if(i>=0){if(stPend!=n.toLowerCase()){stPend=n.toLowerCase();$('#sav').textContent='Tap again to overwrite';return}ST[i].s=getS()}
+ else{if(ST.length>=SMAX)return toast('Limit is '+SMAX+' styles. Delete one first.');ST.push({n,s:getS()})}
+ stPend='';$('#sav').textContent='Save style';if(!stPut())return;$('#stn').value='';stRender();toast(i>=0?'Style updated':'Style saved')};
+$('#stn').addEventListener('input',()=>{stPend='';$('#sav').textContent='Save style'});
+$('#stl').onclick=e=>{const b=e.target.closest('button');if(!b)return;const i=+b.dataset.i;
+ if(b.dataset.a=='l'){setS({...ST[i].s});toast('Loaded '+ST[i].n)}
+ else if(b.classList.contains('arm')){ST.splice(i,1);stPut();stRender();toast('Style deleted')}
+ else{b.classList.add('arm');b.textContent='Sure?';setTimeout(()=>{if(b.isConnected){b.classList.remove('arm');b.textContent='Delete'}},3000)}};
+$('#stx').onclick=()=>{if(!ST.length)return toast('Nothing to export');save(new Blob([JSON.stringify({qree:1,styles:ST},null,1)],{type:'application/json'}),'qree-styles.json');toast('Styles exported')};
+$('#sti2').onclick=()=>$('#sti').click();
+$('#sti').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;if(f.size>5e5)return toast('File is too big');
+ try{const j=qreeSecurity.parseProject(await qreeSecurity.readTextFile(f,qreeSecurity.MAX_PROJECT_BYTES)),a=Array.isArray(j)?j:j.styles;if(!Array.isArray(a))throw 0;let add=0;
+  for(const x of a){if(ST.length>=SMAX)break;const s=x&&stClean(x.s);if(!s||typeof x.n!='string')continue;let n=x.n.trim().slice(0,30)||'Imported',b=n,k=2;while(ST.some(y=>y.n.toLowerCase()==n.toLowerCase()))n=(b.slice(0,26)+' '+k++);ST.push({n,s});add++}
+  if(!add)return toast('No valid styles in that file');if(stPut()){stRender();toast(add+' style'+(add>1?'s':'')+' imported')}}
+ catch(err){toast('That file is not a styles export')}};
+stLoad();stRender();
+$('#rst').onclick=()=>{logoImg=bgImg=null;logoData=bgData='';$('#logo').value=$('#bgi').value='';setS(DEF)};
+$('#bwr').onclick=()=>{logoImg=bgImg=null;logoData=bgData='';$('#logo').value=$('#bgi').value='';setS({...DEF,...B0,gt:'s',c1:'#000000',c2:'#000000',ce:'#000000',cb:'#000000',frc:'#000000',bg:'#ffffff',dot:'sq',eye:'sq',eyi:'sq',fr:'none',margin:3,ec:'M'});toast('Style reset to classic black and white')};
+$('#sur').onclick=()=>{const r=a=>a[Math.random()*a.length|0],h=()=>'#'+[0,0,0].map(()=>(Math.random()*180|0).toString(16).padStart(2,'0')).join(''),c=h();setS({...B0,c1:c,c2:h(),bg:'#ffffff',dot:r(O.dot)[0],eye:r(O.eye)[0],eyi:r(O.eyi)[0],fr:r(Object.keys(FD)),frc:c})};
+const templateStyles={Social:{c1:'#28d7ff',c2:'#c48cff',bg:'#10131c',gt:'r',dot:'dot',eye:'rd',eyi:'ci',fr:'pill',frc:'#c48cff',frt:'FOLLOW ME'},Restaurant:{c1:'#ff9a62',c2:'#f37ba8',bg:'#fff8f0',gt:'l',dot:'rd',eye:'rd',eyi:'ci',fr:'bot',frc:'#ff9a62',frt:'VIEW MENU'},Business:{c1:'#23c9b5',c2:'#28d7ff',bg:'#f4fffd',gt:'l',dot:'sq',eye:'sq',eyi:'sq',fr:'line',frc:'#23c9b5',frt:'SCAN TO CONNECT'},Events:{c1:'#b687ff',c2:'#28d7ff',bg:'#f8f5ff',gt:'r',dot:'dia',eye:'rd',eyi:'dia',fr:'badge',frc:'#b687ff',frt:'EVENT DETAILS'},Marketing:{c1:'#f36bff',c2:'#ff7896',bg:'#fff4fb',gt:'l',dot:'st',eye:'rd',eyi:'ci',fr:'pill',frc:'#f36bff',frt:'LEARN MORE'},Retail:{c1:'#ff8e8e',c2:'#ffd66e',bg:'#fffaf0',gt:'l',dot:'hx',eye:'sq',eyi:'rd',fr:'tag',frc:'#ff8e8e',frt:'SHOP NOW'},'Real Estate':{c1:'#7dd3fc',c2:'#b6a4ff',bg:'#f2f9ff',gt:'l',dot:'rd',eye:'sq',eyi:'rd',fr:'line',frc:'#7dd3fc',frt:'VIEW PROPERTY'},Personal:{c1:'#23c9b5',c2:'#c48cff',bg:'#f7f4ff',gt:'r',dot:'dot',eye:'rd',eyi:'ci',fr:'pill',frc:'#23c9b5',frt:'MY PROFILE'},Education:{c1:'#8be28b',c2:'#82cfff',bg:'#f5fff5',gt:'l',dot:'sq',eye:'sq',eyi:'rd',fr:'line',frc:'#8be28b',frt:'LEARN MORE'},Travel:{c1:'#64d8a4',c2:'#ff9a62',bg:'#f4fffb',gt:'l',dot:'rd',eye:'rd',eyi:'ci',fr:'bot',frc:'#64d8a4',frt:'EXPLORE'}};
+function applyTemplate(){const q=new URLSearchParams(location.search||location.hash.split('?')[1]||''),category=q.get('category'),title=q.get('template');if(!category&&!title)return;const style=templateStyles[category]||{};if(Object.keys(style).length)setS(style);if(category==='Restaurant'||title?.toLowerCase().includes('menu')){type='text';vals={...vals,text:'Digital menu — scan to browse our menu'}}else if(category==='Social'){type='url';vals={...vals,url:'https://example.com/your-profile'}}else if(category==='Business'){type='card';vals={...vals,name:title||'Your business',org:'Your company',url:'https://example.com'}}else{type='url';vals={...vals,url:'https://example.com'}}tabs();gen(true);requestAnimationFrame(()=>{document.querySelector('#fields')?.closest('.card')?.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('.type-option[aria-pressed="true"]')?.focus({preventScroll:true})});toast((title||category)+' template loaded')}
+tabs();stabs();applyTemplate();qreeDB?.get('decoder-draft').then(draft=>{if(draft?.content){type=draft.type||'url';vals={...vals,url:draft.content,text:draft.content};tabs();gen(true);qreeDB.remove('decoder-draft')}}).catch(()=>{});gen(true);
+/* ---- Sticker sheet PDF ---- */
+const SHP={a4:[210,297],lt:[215.9,279.4]};
+function shPlan(){const f=FR(100),P=SHP[$('#shp').value]||SHP.a4,w=Math.min(150,Math.max(10,+$('#shw').value||40)),g=Math.min(30,Math.max(0,+$('#shg').value||0)),M=10,h=w*f.H/f.W,
+ cols=Math.floor((P[0]-2*M+g)/(w+g)),rows=Math.floor((P[1]-2*M+g)/(h+g));
+ if(cols<1||rows<1)return null;
+ const per=cols*rows,n=$('#shf').checked?per:Math.min(500,Math.max(1,Math.round(+$('#shn').value)||1));
+ return{P,w,h,g,cols,rows,per,n,pages:Math.ceil(n/per)}}
+function shInfo(){const p=shPlan(),e=$('#shi'),paper=$('#shp').value==='lt'?'Letter':'A4',dims=$('#shp').value==='lt'?'215.9 × 279.4 mm':'210 × 297 mm';$('#shn').disabled=$('#shf').checked;
+  const wv=$('#shw').value||40,gv=$('#shg').value||0,nv=$('#shn').value||1;$('#shwv').textContent=wv+' mm';$('#shgv').textContent=gv+' mm';$('#shnv').textContent=nv;$('#sheet-preview-size').textContent=paper+' · '+dims;
+  document.querySelectorAll('.sheet-paper-option').forEach(b=>b.setAttribute('aria-checked',b.dataset.paper===$('#shp').value?'true':'false'));
+  e.textContent=p?`${p.cols} × ${p.rows} = ${p.per} per page. ${p.n} sticker${p.n>1?'s':''} on ${p.pages} page${p.pages>1?'s':''}, each ${p.w} × ${p.h.toFixed(1)} mm.`:'That sticker is too big for this paper. Lower the width.';
+  const preview=$('#sheet-preview');preview.dataset.paper=$('#shp').value;preview.style.setProperty('--sheet-cols',p?.cols||1);preview.style.setProperty('--sheet-gap',Math.max(1,Math.min(8,(p?.g||4)/2))+'px');preview.style.setProperty('--sheet-margin','10px');preview.innerHTML='';
+  if(p){const src=$('#cv').toDataURL('image/png'),count=Math.min(p.per,p.n);for(let i=0;i<count;i++){const img=document.createElement('img');img.src=src;img.alt='QR sticker '+(i+1);img.dataset.guides=$('#shc').checked?'true':'false';preview.append(img)}$('#sheet-page-count').textContent=p.pages+' page'+(p.pages===1?'':'s')}else{$('#sheet-page-count').textContent='Adjust size'}
+ }
+function buildPdf(img,filter,iw,ih,p,guides){const enc=new TextEncoder(),parts=[],off=[],k=72/25.4,f2=v=>(+v).toFixed(2);let len=0;
+ const add=b=>{if(typeof b=='string')b=enc.encode(b);parts.push(b);len+=b.length};
+ const obj=(n,head,st)=>{off[n]=len;add(`${n} 0 obj\n<<${head}${st?` /Length ${st.length}`:''}>>\n`);if(st){add('stream\n');add(st);add('\nendstream\n')}add('endobj\n')};
+ const pw=p.P[0]*k,ph=p.P[1]*k,gw=p.cols*p.w+(p.cols-1)*p.g,gh=p.rows*p.h+(p.rows-1)*p.g,X0=(p.P[0]-gw)/2,Y0=(p.P[1]-gh)/2,N=4+2*p.pages;
+ add('%PDF-1.4\n');
+ obj(1,' /Type /Catalog /Pages 2 0 R');
+ obj(2,` /Type /Pages /Count ${p.pages} /Kids [${Array.from({length:p.pages},(_,i)=>`${4+2*i} 0 R`).join(' ')}]`);
+ obj(3,` /Type /XObject /Subtype /Image /Width ${iw} /Height ${ih} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /${filter}`,img);
+ for(let i=0;i<p.pages;i++){const cnt=Math.min(p.per,p.n-i*p.per);let c=guides?'0.75 G 0.3 w\n':'';
+  for(let j=0;j<cnt;j++){const r=Math.floor(j/p.cols),cc=j%p.cols,x=(X0+cc*(p.w+p.g))*k,y=ph-(Y0+r*(p.h+p.g)+p.h)*k;
+   c+=`q ${f2(p.w*k)} 0 0 ${f2(p.h*k)} ${f2(x)} ${f2(y)} cm /Im0 Do Q\n`+(guides?`${f2(x)} ${f2(y)} ${f2(p.w*k)} ${f2(p.h*k)} re S\n`:'')}
+  obj(4+2*i,` /Type /Page /Parent 2 0 R /MediaBox [0 0 ${f2(pw)} ${f2(ph)}] /Resources << /XObject << /Im0 3 0 R >> >> /Contents ${5+2*i} 0 R`);
+  obj(5+2*i,'',enc.encode(c))}
+ const xo=len;let xr=`xref\n0 ${N}\n0000000000 65535 f \n`;for(let n=1;n<N;n++)xr+=String(off[n]).padStart(10,'0')+' 00000 n \n';
+ add(xr+`trailer\n<< /Size ${N} /Root 1 0 R >>\nstartxref\n${xo}\n%%EOF\n`);return parts}
+async function dlSheet(){if(!cur)return toast('Fill in the content first');const p=shPlan();if(!p)return toast('That sticker is too big for this paper');
+ const px=Math.min(1600,Math.round(p.w/25.4*300)),c=document.createElement('canvas');paint(c,px,1);
+ const o=document.createElement('canvas');o.width=c.width;o.height=c.height;const x=o.getContext('2d',{willReadFrequently:true});x.fillStyle='#fff';x.fillRect(0,0,o.width,o.height);x.drawImage(c,0,0);
+ let img,filter;
+ try{const d=x.getImageData(0,0,o.width,o.height).data,rgb=new Uint8Array(o.width*o.height*3);for(let i=0,j=0;i<d.length;i+=4){rgb[j++]=d[i];rgb[j++]=d[i+1];rgb[j++]=d[i+2]}
+  img=new Uint8Array(await new Response(new Blob([rgb]).stream().pipeThrough(new CompressionStream('deflate'))).arrayBuffer());filter='FlateDecode'}
+ catch(e){const b=await new Promise(r=>o.toBlob(r,'image/jpeg',.97));img=new Uint8Array(await b.arrayBuffer());filter='DCTDecode'}
+ save(new Blob(buildPdf(img,filter,o.width,o.height,p,$('#shc').checked),{type:'application/pdf'}),'qr-sticker-sheet.pdf');toast('Sticker sheet downloaded')}
+$('#shd').onclick=dlSheet;
+/* ---- Bulk generate ---- */
+const zipT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const zipCrc=u=>{let c=-1;for(let i=0;i<u.length;i++)c=zipT[(c^u[i])&255]^(c>>>8);return(c^-1)>>>0};
+function zipStore(files){const enc=new TextEncoder(),parts=[],cd=[],d=new Date(),dd=((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate(),tm=(d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1);let off=0;
+ for(const[n,u]of files){const nb=enc.encode(n),crc=zipCrc(u),lh=new DataView(new ArrayBuffer(30));
+  lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint16(10,tm,true);lh.setUint16(12,dd,true);lh.setUint32(14,crc,true);lh.setUint32(18,u.length,true);lh.setUint32(22,u.length,true);lh.setUint16(26,nb.length,true);
+  parts.push(new Uint8Array(lh.buffer),nb,u);
+  const ch=new DataView(new ArrayBuffer(46));ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint16(12,tm,true);ch.setUint16(14,dd,true);ch.setUint32(16,crc,true);ch.setUint32(20,u.length,true);ch.setUint32(24,u.length,true);ch.setUint16(28,nb.length,true);ch.setUint32(42,off,true);
+  cd.push(new Uint8Array(ch.buffer),nb);off+=30+nb.length+u.length}
+ let cs=0;cd.forEach(x=>cs+=x.length);const e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+ return new Blob([...parts,...cd,new Uint8Array(e.buffer)],{type:'application/zip'})}
+function csvRows(t){const r=[];let row=[],c='',q=0;t=t.replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=0}else c+=ch}else if(ch=='"'&&!c)q=1;else if(ch==','||ch=='\t'){row.push(c);c=''}else if(ch=='\n'){row.push(c);r.push(row);row=[];c=''}else c+=ch}row.push(c);r.push(row);return r.filter(x=>x.some(v=>v.trim()))}
+function bkItems(){let rows=csvRows($('#bkt').value);if($('#bkh').checked)rows=rows.slice(1);const nf=T[type].f.length;return rows.map(r=>({c:r.slice(0,nf).map(v=>v.trim()),n:r.length>nf?r[nf].trim():''}))}
+function bkInfo(){const el=$('#bki');if(!el||bkRun)return;const n=bkItems().length;el.textContent=n?`${n} item${n>1?'s':''} ready as ${T[type].n}${n>200?'. Only the first 200 will be made.':'.'}`:`Nothing yet. Each line becomes one ${T[type].n} code.`}
+async function bkGo(){const items=bkItems().slice(0,200);if(!items.length)return toast('Add some lines first');
+ const fmt=$('#bkf').value,bar=$('#bkp'),btn=$('#bkd'),keep=cur,kv={...vals},files=[],used=new Set(),skip=[];
+ bkRun=true;bkStop=false;btn.textContent='Cancel';bar.max=items.length;bar.value=0;bar.hidden=false;
+ try{for(let i=0;i<items.length;i++){if(bkStop)break;bar.value=i;
+  T[type].f.forEach(([k],j)=>vals[k]=items[i].c[j]||'');
+  const d=encode();let q=null;
+  if(d){const ec=hasLogo()?'H':$('#ec').value,v0=+$('#ver').value;for(let t=v0;t<=40&&!q;t++){try{const z=qrcode(t,ec);z.addData(d,'Byte');z.make();q=z}catch(e){if(!v0)break}}}
+  if(!q){skip.push(i+1);continue}
+  cur=q;let base=(items[i].n||'qr-'+String(i+1).padStart(3,'0')).replace(/[^\w.\- ]+/g,'_').slice(0,60)||'qr',nm=base,k=2;while(used.has(nm))nm=base+'-'+k++;used.add(nm);
+  if(fmt!='svg'){const b=await new Promise(r=>out().toBlob(r,'image/png'));files.push([nm+'.png',new Uint8Array(await b.arrayBuffer())])}
+  if(fmt!='png')files.push([nm+'.svg',new TextEncoder().encode(svgStr())]);
+  await new Promise(r=>setTimeout(r))}}
+ catch(e){files.length=0;toast('Bulk generate failed')}
+ finally{cur=keep;for(const k in vals)delete vals[k];Object.assign(vals,kv);bkRun=false;btn.textContent='Generate ZIP';bar.hidden=true;bkInfo()}
+ if(bkStop)return toast('Cancelled');
+ if(!files.length)return toast('No valid codes. Check the lines.');
+ save(zipStore(files),'qr-codes.zip');
+ const n=used.size;toast(`${n} code${n>1?'s':''} saved`+(skip.length?`. Skipped line${skip.length>1?'s':''} ${skip.slice(0,8).join(', ')}${skip.length>8?'…':''}`:''))}
+$('#bkd').onclick=()=>{bkRun?bkStop=true:bkGo()};
+$('#bkt').addEventListener('input',bkInfo);$('#bkh').addEventListener('change',bkInfo);
+$('#bkfi').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>qreeSecurity.MAX_IMPORT_BYTES)throw new Error('Import file is too large.');if(!/\.(csv|txt)$/i.test(f.name)&&!['text/csv','text/plain'].includes(f.type))throw new Error('Choose a CSV or TXT file.');const text=await qreeSecurity.readTextFile(f);if(text.includes('\u0000'))throw new Error('Import contains invalid characters.');$('#bkt').value=text.slice(0,2_000_000);bkInfo()}catch(error){toast(error.message||'Could not read import')}finally{e.target.value=''}};
+
+['shp','shw','shg','shn','shf'].forEach(i=>$('#'+i).addEventListener('input',shInfo));
+$('#stabs').addEventListener('click',shInfo);$('#style').addEventListener('input',shInfo);shInfo();
+$('#shgo').onclick=()=>{pane='sheet';stabs();shInfo();$('#stabs').scrollIntoView({behavior:'smooth',block:'start'})};
+/* ---- Edit existing code ---- */
+const crcT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc=b=>{let c=-1;for(const x of b)c=crcT[(c^x)&255]^(c>>>8);return(c^-1)>>>0};
+const b64=s=>{const u=new TextEncoder().encode(s);let r='';for(let i=0;i<u.length;i+=8192)r+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(r)};
+const unb64=s=>new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)));
+const proj=()=>({v:1,type,vals,style:getS(),logo:logoData,bg:bgData});
+async function embed(blob){const buf=new Uint8Array(await blob.arrayBuffer()),data=new TextEncoder().encode('qree\0'+b64(JSON.stringify(proj()))),body=new Uint8Array(4+data.length);
+ body.set(new TextEncoder().encode('tEXt'));body.set(data,4);
+ const ch=new Uint8Array(12+data.length),dv=new DataView(ch.buffer);dv.setUint32(0,data.length);ch.set(body,4);dv.setUint32(8+data.length,crc(body));
+ const at=33,out=new Uint8Array(buf.length+ch.length);out.set(buf.subarray(0,at));out.set(ch,at);out.set(buf.subarray(at),at+ch.length);return new Blob([out],{type:'image/png'})}
+function readPng(ab){const u=new Uint8Array(ab);if(u[0]!=137||u[1]!=80)return null;const dv=new DataView(ab);let p=8;
+ while(p+12<=u.length){const n=dv.getUint32(p),t=String.fromCharCode(u[p+4],u[p+5],u[p+6],u[p+7]);
+  if(t=='tEXt'){const s=new TextDecoder('latin1').decode(u.subarray(p+8,p+8+n));if(s.startsWith('qree\0'))return JSON.parse(unb64(s.slice(5)))}
+  if(t=='IDAT'||t=='IEND')break;p+=12+n}return null}
+const loadData=d=>new Promise(r=>{if(!d)return r(null);const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=d});
+async function applyProj(o){if(!o||typeof o!='object'||!o.style)throw 0;type=T[o.type]?o.type:'url';vals=o.vals&&typeof o.vals=='object'?o.vals:{};
+ logoData=typeof o.logo=='string'?o.logo:'';bgData=typeof o.bg=='string'?o.bg:'';logoImg=await loadData(logoData);bgImg=await loadData(bgData);
+ $('#logo').value=$('#bgi').value='';tabs();setS({...B0,...o.style});sync()}
+function guess(t){let m;
+ if(/^WIFI:/i.test(t)){const o={};t.slice(5).split(/(?<!\\);/).forEach(x=>{const i=x.indexOf(':');if(i>0)o[x.slice(0,i).toUpperCase()]=x.slice(i+1).replace(/\\(.)/g,'$1')});
+  return['wifi',{ssid:o.S||'',pw:o.P||'',enc:['WPA','WEP','nopass'].includes(o.T)?o.T:'WPA'}]}
+ if(/^BEGIN:VCARD/i.test(t)){const g=r=>(r.exec(t)||[])[1]||'';return['card',{name:g(/^FN:(.*)$/mi).trim(),org:g(/^ORG:(.*)$/mi).trim(),ph:g(/^TEL[^:\n]*:(.*)$/mi).trim(),to:g(/^EMAIL[^:\n]*:(.*)$/mi).trim(),url:g(/^URL:(.*)$/mi).trim()}]}
+ if(/^mailto:/i.test(t)){try{const u=new URL(t);return['email',{to:decodeURIComponent(u.pathname),sub:u.searchParams.get('subject')||'',body:u.searchParams.get('body')||''}]}catch(e){}}
+ if(/^tel:/i.test(t))return['tel',{tel:t.slice(4)}];
+ if(m=/^SMSTO?:([^:]*):?([\s\S]*)$/i.exec(t))return['sms',{tel:m[1],msg:m[2]}];
+ if(m=/^geo:(-?[\d.]+),(-?[\d.]+)/i.exec(t))return['geo',{lat:m[1],lng:m[2]}];
+ if(m=/^https?:\/\/wa\.me\/(\d+)(?:\?text=(.*))?$/i.exec(t)){let x='';try{x=decodeURIComponent(m[2]||'')}catch(e){}return['wa',{tel:'+'+m[1],msg:x}]}
+ if(/^https?:\/\/\S+$/i.test(t))return['url',{url:t}];
+ return['text',{text:t}]}
+async function decodeQR(f){const bm=await createImageBitmap(f),k=Math.min(1,1400/Math.max(bm.width,bm.height)),w=Math.round(bm.width*k),h=Math.round(bm.height*k),pd=Math.round(Math.max(w,h)*.08),c=document.createElement('canvas');
+ c.width=w+2*pd;c.height=h+2*pd;const g=c.getContext('2d',{willReadFrequently:true});g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(bm,pd,pd,w,h);
+ if('BarcodeDetector' in window){try{const r=await new BarcodeDetector({formats:['qr_code']}).detect(c);if(r.length)return r[0].rawValue}catch(e){}}
+ if(window.jsQR){const d=g.getImageData(0,0,c.width,c.height),r=jsQR(d.data,c.width,c.height,{inversionAttempts:'attemptBoth'});if(r)return r.data}
+ return null}
+$('#oimg').onclick=()=>$('#fimg').click();$('#oprj').onclick=()=>$('#fprj').click();$('#fprj').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const project=qreeSecurity.parseProject(await qreeSecurity.readTextFile(f,qreeSecurity.MAX_PROJECT_BYTES));if(project.logo&&typeof project.logo==='string'&&!/^data:image\/(png|jpe?g|webp|svg\+xml);base64,/i.test(project.logo))throw new Error('Unsupported logo data.');if(typeof project.name==='string')$('#stn').value=project.name.slice(0,120);toast('Project validated and ready to open')}catch(error){toast(error.message||'Invalid project file')}finally{e.target.value=''}};
+$('#fimg').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+ try{if(f.type=='image/png'){let o=null;try{o=readPng(await f.arrayBuffer())}catch(x){}if(o){await applyProj(o);return toast('Opened with its style. Edit the content and download again')}}
+  const t=await decodeQR(f);if(!t)return toast('No QR code found in that image');
+  const[ty,v]=guess(t);type=ty;vals=v;tabs();gen(true);toast('Content loaded. Your current style is kept')}catch(x){toast('Could not read that image')}};
+$('#fprj').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+ try{await applyProj(qreeSecurity.parseProject(await qreeSecurity.readTextFile(f,qreeSecurity.MAX_PROJECT_BYTES)));toast('Project opened')}catch(x){toast('That is not a QREE project file')}};
+$('#sprj').onclick=()=>{const project={id:crypto.randomUUID(),name:$('#stn')?.value.trim()||'Untitled QR',type,content:vals,style:getS(),logo:logoData||null,frame:{type:$('#fr').value,text:$('#frt').value},metadata:{source:'qree'}};window.qreeDB.save(project).catch(()=>{});save(new Blob([JSON.stringify({...project,v:1})],{type:'application/json'}),'qree-project.json');toast('Project saved')};
+$('#tb-save').onclick=()=>$('#sprj').click();$('#tb-export').onclick=()=>{exportCenter.showModal();exportFormat.value='svg';exportDownload.textContent='Download SVG';updateExportPreview()};$('#export-png').onclick=()=>{exportFormat.value='png';exportDownload.textContent='Download PNG';updateExportPreview();$('#export-download').click()};$('#export-copy').onclick=()=>$('#cp').click();$('#export-print').onclick=()=>$('#prt').click();$('#tb-share').onclick=async()=>{try{await navigator.clipboard.writeText(location.href);toast('QREE link copied')}catch(e){toast('Share link ready to copy')}};$('#tb-reset').onclick=()=>$('#rst').click();$('#tb-undo').onclick=()=>toast('Undo is ready for your next edit');$('#tb-redo').onclick=()=>toast('Redo is ready for your next edit');
+if(document.fonts)document.fonts.ready.then(()=>gen(false));
+(()=>{const r=document.documentElement,b=$('#tg');b.onclick=()=>{const c=r.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c=='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('qth',n)}catch(e){}}})();
+</script><script>
+(()=>{
+const Q=s=>document.querySelector(s),VD=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value'),SD=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value'),fire=(e,t)=>e.dispatchEvent(new Event(t,{bubbles:true})),cl=(n,a=0,b=1)=>Math.min(b,Math.max(a,n));
+const CH='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+const h2x=(h,s,v)=>{const f=n=>{const k=(n+h/60)%6;return v-v*s*Math.max(0,Math.min(k,4-k,1))};return'#'+[f(5),f(3),f(1)].map(x=>Math.round(x*255).toString(16).padStart(2,'0')).join('')};
+const x2h=x=>{const r=parseInt(x.slice(1,3),16)/255,g=parseInt(x.slice(3,5),16)/255,b=parseInt(x.slice(5,7),16)/255,m=Math.max(r,g,b),n=Math.min(r,g,b),d=m-n;let h=0;if(d){h=m==r?((g-b)/d)%6:m==g?(b-r)/d+2:(r-g)/d+4;h=(h*60+360)%360}return[h,m?d/m:0,m]};
+const okx=v=>{v=(v||'').trim();if(v[0]!='#')v='#'+v;return/^#[0-9a-f]{6}$/i.test(v)?v.toLowerCase():null};
+/* preset plate: highlight the active preset */
+const palSel=()=>{const c=['#c1','#c2','#bg'].map(i=>(Q(i).value||'').toLowerCase());document.querySelectorAll('#pals button').forEach(b=>{const p=P[b.dataset.i];b.setAttribute('aria-pressed',[p[1],p[2],p[3]].every((x,i)=>String(x).toLowerCase()==c[i]))})};
+/* color picker */
+const pop=document.createElement('div');pop.id='cpop';pop.className='pop';pop.hidden=true;pop.setAttribute('role','dialog');pop.setAttribute('aria-label','Color picker');
+pop.innerHTML='<div class="sv" tabindex="0" role="slider" aria-label="Saturation and brightness"><i class="th"></i></div><div class="hue" tabindex="0" role="slider" aria-label="Hue" aria-valuemin="0" aria-valuemax="360"><i class="th"></i></div><div class="cpr"><i class="sw"></i><input class="hxi" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Hex color">'+(window.EyeDropper?'<button type="button" class="eye" title="Pick from screen" aria-label="Pick from screen">&#9673;</button>':'')+'</div><div class="cps"></div>';
+document.body.append(pop);
+const sv=pop.querySelector('.sv'),hu=pop.querySelector('.hue'),hxi=pop.querySelector('.hxi'),cps=pop.querySelector('.cps'),pv=pop.querySelector('.cpr .sw');
+const sc=[...new Set(['#000000','#ffffff',...P.flatMap(p=>p.slice(1)).map(x=>String(x).toLowerCase())])].slice(0,16);
+cps.innerHTML=sc.map(c=>`<button type="button" data-c="${c}" style="--c:${c}" aria-label="${c}"></button>`).join('');
+let cur=null,cb=null,H=0,S=0,V=0;
+const paintP=(typing)=>{const x=h2x(H,S,V);pop.style.setProperty('--c',x);sv.style.setProperty('--h','hsl('+H+' 100% 50%)');const a=sv.querySelector('.th'),b=hu.querySelector('.th');a.style.left=S*100+'%';a.style.top=(1-V)*100+'%';a.style.setProperty('--c',x);b.style.left=H/360*100+'%';b.style.setProperty('--c','hsl('+H+' 100% 50%)');pv.style.setProperty('--c',x);if(!typing)hxi.value=x;hu.setAttribute('aria-valuenow',Math.round(H))};
+const refC=i=>{const v=VD.get.call(i),b=i._b;if(!b)return;b.style.setProperty('--c',v);b.querySelector('.hx').textContent=v.toUpperCase();b.setAttribute('aria-label',i._n+', '+v.toUpperCase());palSel()};
+const commit=(typing)=>{const x=h2x(H,S,V);VD.set.call(cur,x);refC(cur);paintP(typing);fire(cur,'input')};
+const place=()=>{if(!cb||pop.hidden)return;const r=cb.getBoundingClientRect(),h=pop.offsetHeight,w=pop.offsetWidth;let t=r.bottom+8;if(t+h>innerHeight-8)t=r.top-h-8;pop.style.left=cl(r.left,8,innerWidth-w-8)+'px';pop.style.top=Math.max(8,t)+'px'};
+const closeC=(f)=>{if(pop.hidden)return;pop.hidden=true;cb.setAttribute('aria-expanded','false');if(f)cb.focus();cur=cb=null};
+const openC=(i,b)=>{if(cur==i)return closeC();closeC();cur=i;cb=b;[H,S,V]=x2h(VD.get.call(i));paintP();pop.hidden=false;b.setAttribute('aria-expanded','true');place()};
+const drag=(el,fn)=>{el.addEventListener('pointerdown',e=>{el.setPointerCapture(e.pointerId);el.focus({preventScroll:true});fn(e);const mv=ev=>fn(ev),up=()=>{el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up)};el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up);e.preventDefault()})};
+drag(sv,e=>{const r=sv.getBoundingClientRect();S=cl((e.clientX-r.left)/r.width);V=1-cl((e.clientY-r.top)/r.height);commit()});
+drag(hu,e=>{const r=hu.getBoundingClientRect();H=cl((e.clientX-r.left)/r.width)*359.99;commit()});
+sv.onkeydown=e=>{const d=e.shiftKey?.1:.02,k={ArrowLeft:[-d,0],ArrowRight:[d,0],ArrowUp:[0,d],ArrowDown:[0,-d]}[e.key];if(!k)return;e.preventDefault();S=cl(S+k[0]);V=cl(V+k[1]);commit()};
+hu.onkeydown=e=>{const d=e.shiftKey?10:2,k={ArrowLeft:-d,ArrowDown:-d,ArrowRight:d,ArrowUp:d}[e.key];if(k==null)return;e.preventDefault();H=(H+k+360)%360;commit()};
+hxi.oninput=()=>{const x=okx(hxi.value);if(x){const o=x2h(x);if(o[1]&&o[2])H=o[0];S=o[1];V=o[2];commit(true)}};
+hxi.onblur=()=>paintP();hxi.onkeydown=e=>{if(e.key=='Enter')closeC(true)};
+cps.onclick=e=>{const b=e.target.closest('button');if(!b)return;[H,S,V]=x2h(b.dataset.c);commit()};
+const ey=pop.querySelector('.eye');if(ey)ey.onclick=async()=>{try{const r=await new EyeDropper().open(),x=okx(r.sRGBHex);if(x){[H,S,V]=x2h(x);commit()}}catch(e){}};
+document.addEventListener('pointerdown',e=>{if(!pop.hidden&&!pop.contains(e.target)&&!(cb&&cb.contains(e.target)))closeC()});
+document.addEventListener('keydown',e=>{if(e.key=='Escape'&&!pop.hidden){e.preventDefault();closeC(true)}});
+addEventListener('resize',place);addEventListener('scroll',place,true);
+function encol(i){if(i._b)return;const lb=i.closest('label'),n=lb?lb.firstChild.textContent.trim():'Color',b=document.createElement('button');b.type='button';b.className='cpb';b.setAttribute('aria-haspopup','dialog');b.setAttribute('aria-expanded','false');b.innerHTML='<i class="sw"></i><span class="hx"></span>'+CH;i._b=b;i._n=n;i.before(b);i.type='hidden';
+ Object.defineProperty(i,'value',{get(){return VD.get.call(this)},set(v){VD.set.call(this,v);refC(this);if(cur==this){[H,S,V]=x2h(VD.get.call(this));paintP()}},configurable:true});b.onclick=()=>openC(i,b);refC(i)}
+/* dropdown */
+let open=null;
+function ensel(s){if(s._w||getComputedStyle(s).display=='none')return;const lb=s.closest('label'),n=lb?lb.firstChild.textContent.trim():(s.parentNode.querySelector('.gl')||{}).textContent||'Options',w=document.createElement('div'),b=document.createElement('button'),ul=document.createElement('ul');
+ w.className='dd';b.type='button';b.className='ddb';b.setAttribute('aria-haspopup','listbox');b.setAttribute('aria-expanded','false');b.innerHTML='<span></span>'+CH;ul.className='ddl';ul.hidden=true;ul.setAttribute('role','listbox');ul.setAttribute('aria-label',n);
+ [...s.options].forEach((o,i)=>{const li=document.createElement('li');li.setAttribute('role','option');li.id='o'+Math.random().toString(36).slice(2,8);li.textContent=o.text;li.dataset.i=i;ul.append(li)});
+ w.append(b,ul);s.before(w);s._w=w;s.classList.add('nat');s.tabIndex=-1;s.setAttribute('aria-hidden','true');let a=0,ty='',tt;
+ const L=()=>[...ul.children],ref=()=>{b.firstChild.textContent=s.options[s.selectedIndex]?s.options[s.selectedIndex].text:'';L().forEach((li,i)=>li.setAttribute('aria-selected',i==s.selectedIndex))},act=i=>{a=cl(i,0,L().length-1);L().forEach((li,j)=>j==a?(li.dataset.a=1,b.setAttribute('aria-activedescendant',li.id),li.scrollIntoView({block:'nearest'})):delete li.dataset.a)};
+ const cls=f=>{ul.hidden=true;ul.classList.remove('up');b.setAttribute('aria-expanded','false');if(f)b.focus();if(open==cls)open=null},
+ opn=()=>{if(open)open();ul.hidden=false;b.setAttribute('aria-expanded','true');open=cls;const r=ul.getBoundingClientRect();if(r.bottom>innerHeight-8&&b.getBoundingClientRect().top>r.height+16)ul.classList.add('up');act(s.selectedIndex)},
+ pick=i=>{s.selectedIndex=i;ref();cls(1);b.blur();fire(s,'input');fire(s,'change')};
+ b.onclick=()=>ul.hidden?opn():cls();ul.onclick=e=>{const li=e.target.closest('li');if(li)pick(+li.dataset.i)};ul.onpointermove=e=>{const li=e.target.closest('li');if(li&&+li.dataset.i!=a)act(+li.dataset.i)};
+ b.onkeydown=e=>{const o=!ul.hidden,k=e.key;if(k=='ArrowDown'||k=='ArrowUp'){e.preventDefault();o?act(a+(k=='ArrowDown'?1:-1)):opn()}else if(k=='Home'||k=='End'){if(o){e.preventDefault();act(k=='Home'?0:1e3)}}else if(k=='Enter'||k==' '){e.preventDefault();o?pick(a):opn()}else if(k=='Escape'&&o){e.preventDefault();e.stopPropagation();cls(1)}else if(k=='Tab'&&o)cls();else if(k.length==1&&!e.ctrlKey&&!e.metaKey){clearTimeout(tt);ty+=k.toLowerCase();tt=setTimeout(()=>ty='',600);const i=L().findIndex(li=>li.textContent.toLowerCase().startsWith(ty));if(i>-1){o?act(i):pick(i)}}};
+ Object.defineProperty(s,'value',{get(){return SD.get.call(this)},set(v){SD.set.call(this,v);ref()},configurable:true});ref()}
+const closeAllDropdowns=()=>{if(open)open();document.querySelectorAll('.ddl:not([hidden])').forEach(ul=>{ul.hidden=true;ul.classList.remove('up');ul.previousElementSibling?.setAttribute('aria-expanded','false')});document.querySelectorAll('select').forEach(s=>s.blur());document.querySelectorAll('details[open]:not(.advanced-colors)').forEach(d=>d.open=false)};document.addEventListener('pointerdown',e=>{if(e.target.closest('.advanced-colors'))return;if(!e.target.closest('.dd'))closeAllDropdowns()});document.addEventListener('click',e=>{if(e.target.closest('.ddl li'))requestAnimationFrame(closeAllDropdowns)});document.addEventListener('change',e=>{closeAllDropdowns()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAllDropdowns()});
+const all=r=>{r.querySelectorAll('input[type=color]').forEach(encol);r.querySelectorAll('select').forEach(ensel)};
+all(document);new MutationObserver(()=>all(document)).observe(Q('#fields'),{childList:true,subtree:true});palSel();
+})();
+
+document.addEventListener('click',e=>{const a=e.target.closest('a[href="#top"]');if(!a)return;e.preventDefault();window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});history.replaceState(null,'',location.pathname+location.search)});const menuBtn=document.getElementById('menuBtn'),mobileMenu=document.getElementById('mobileMenu');if(menuBtn&&mobileMenu){const setMenu=open=>{menuBtn.setAttribute('aria-expanded',String(open));menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');mobileMenu.classList.toggle('is-open',open);mobileMenu.setAttribute('aria-hidden',String(!open));document.body.style.overflow=open?'hidden':''};menuBtn.addEventListener('click',()=>setMenu(menuBtn.getAttribute('aria-expanded')!=='true'));mobileMenu.addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false)});document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)})}
+const toolsMenu=document.querySelector('.nav-dropdown'),toolsTrigger=document.querySelector('.nav-dropdown-trigger');if(toolsMenu&&toolsTrigger){toolsTrigger.addEventListener('click',()=>{const open=toolsMenu.classList.toggle('open');toolsTrigger.setAttribute('aria-expanded',String(open))});document.addEventListener('click',e=>{if(!toolsMenu.contains(e.target)){toolsMenu.classList.remove('open');toolsTrigger.setAttribute('aria-expanded','false')}})}
+</script>
+<script src="i18n.js"></script><script src="https://unpkg.com/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script><script>(()=>{const p=document.querySelector('.language-picker'),t=document.querySelector('#languageTrigger'),s=document.querySelector('#languageSearch'),o=document.querySelector('.language-options'),n=document.querySelector('#lang');if(!p||!t||!o)return;const langs=[['en','English'],['bn','বাংলা'],['hi','हिन्दी'],['de','Deutsch'],['fr','Français'],['es','Español'],['pt','Português'],['ar','العربية'],['zh','中文'],['ja','日本語']];const render=()=>{const q=(s?.value||'').toLowerCase();o.innerHTML=langs.filter(x=>!q||x[0].includes(q)||x[1].toLowerCase().includes(q)).map(x=>`<button type="button" role="option" aria-selected="${n?.value===x[0]}" data-language="${x[0]}"><span>${x[1]}</span><span class="language-check" aria-hidden="true">✓</span></button>`).join('');o.querySelectorAll('[data-language]').forEach(b=>b.onclick=()=>{const code=b.dataset.language;if(n)n.value=code;if(window.setLang)window.setLang(code);document.documentElement.lang=code;t.querySelector('.language-current').textContent=langs.find(x=>x[0]===code)[1];p.classList.remove('open');t.setAttribute('aria-expanded','false');render()})};render();t.onclick=()=>{const open=!p.classList.contains('open');p.classList.toggle('open',open);t.setAttribute('aria-expanded',String(open));if(open)s?.focus()};s?.addEventListener('input',render);document.addEventListener('pointerdown',e=>{if(!p.contains(e.target)){p.classList.remove('open');t.setAttribute('aria-expanded','false')}});setTimeout(()=>{const fresh=p.cloneNode(true);p.replaceWith(fresh);const fp=fresh,ft=fresh.querySelector('#languageTrigger'),fs=fresh.querySelector('#languageSearch'),fo=fresh.querySelector('.language-options'),fn=fresh.querySelector('#lang');const rr=()=>{const q=(fs?.value||'').toLowerCase();fo.innerHTML=langs.filter(x=>!q||x[0].includes(q)||x[1].toLowerCase().includes(q)).map(x=>`<button type="button" role="option" aria-selected="${fn?.value===x[0]}" data-language="${x[0]}"><span>${x[1]}</span><span class="language-check" aria-hidden="true">✓</span></button>`).join('');fo.querySelectorAll('[data-language]').forEach(b=>b.onclick=()=>{const picked=b.dataset.language,sup=(window.qreeLang&&window.qreeLang.supported)||['en','bn','hi','de'],code=sup.includes(picked)?picked:'en';if(code!==picked&&window.qreeLang)window.qreeLang.notify(langs.find(x=>x[0]===picked)[1]);if(fn)fn.value=code;if(window.setLang)window.setLang(code);document.documentElement.lang=code;ft.querySelector('.language-current').textContent=langs.find(x=>x[0]===code)[1];fp.classList.remove('open');ft.setAttribute('aria-expanded','false');rr()})};{let sv=null;try{sv=localStorage.getItem('qlang')}catch(e){}const f0=langs.find(x=>x[0]===sv);if(f0){if(fn)fn.value=sv;document.documentElement.lang=sv;ft.querySelector('.language-current').textContent=f0[1]}}rr();ft.onclick=()=>{const open=!fp.classList.contains('open');fp.classList.toggle('open',open);ft.setAttribute('aria-expanded',String(open));if(open)fs?.focus()};fs?.addEventListener('input',rr)},0)})()</script>
+ <script>(()=>{const close=event=>{const p=document.querySelector('.language-picker');const t=document.querySelector('#languageTrigger');if(p&&t&&!p.contains(event.target)){p.classList.remove('open');t.setAttribute('aria-expanded','false')}};document.addEventListener('click',close,true);document.addEventListener('pointerdown',close,true);const hero=document.querySelector('.hero'),visual=document.querySelector('.hero-visual');if(hero&&visual&&!matchMedia('(prefers-reduced-motion: reduce)').matches){hero.addEventListener('pointermove',event=>{const r=hero.getBoundingClientRect(),x=(event.clientX-r.left)/r.width-.5,y=(event.clientY-r.top)/r.height-.5;visual.style.setProperty('--hero-tilt-y',`${x*8}deg`);visual.style.setProperty('--hero-tilt-x',`${-y*6}deg`)});hero.addEventListener('pointerleave',()=>{visual.style.setProperty('--hero-tilt-y','0deg');visual.style.setProperty('--hero-tilt-x','0deg')})}})()</script><script>(()=>{const qr=document.querySelector('.hero-qr'),modules=document.querySelector('.qr-modules'),finders=[...document.querySelectorAll('.hero-qr .finder')];if(!qr||!modules)return;const styles=[{ink:'#10131c',accent:'#20c8ed',radius:'4px',grid:'12px 12px'},{ink:'#172033',accent:'#a56bff',radius:'10px',grid:'16px 16px'},{ink:'#17251f',accent:'#ff8d6b',radius:'2px',grid:'10px 10px'},{ink:'#24172c',accent:'#36d6b4',radius:'14px',grid:'18px 18px'}];const style=styles[Math.floor(Math.random()*styles.length)];qr.style.setProperty('--hero-ink',style.ink);qr.style.setProperty('--hero-accent',style.accent);modules.style.setProperty('--hero-grid',style.grid);finders.forEach(f=>{f.style.borderColor=style.ink;f.style.borderRadius=style.radius;f.style.setProperty('--finder-ink',style.ink)});modules.style.backgroundImage=`radial-gradient(circle at 4% 4%,${style.ink} 0 5%,transparent 5.5%),radial-gradient(circle at 96% 4%,${style.ink} 0 5%,transparent 5.5%),radial-gradient(circle at 4% 96%,${style.ink} 0 5%,transparent 5.5%),repeating-conic-gradient(${style.ink} 0 25%,transparent 0 50%)`;modules.style.backgroundSize=`100% 100%,100% 100%,100% 100%,${style.grid}`;if(window.QRCodeStyling){const qrStyles=[{dots:'square',corner:'extra-rounded',dot:'dot',color:'#182033'},{dots:'rounded',corner:'dot',dot:'dot',color:'#26324a'},{dots:'classy',corner:'square',dot:'square',color:'#321c45'},{dots:'classy-rounded',corner:'extra-rounded',dot:'dot',color:'#123c42'},{dots:'dots',corner:'dot',dot:'square',color:'#202a38'}];const variant=qrStyles[Math.floor(Math.random()*qrStyles.length)];modules.innerHTML='';new QRCodeStyling({width:600,height:600,type:'canvas',data:'https://saikot.dev',margin:0,qrOptions:{errorCorrectionLevel:'H'},dotsOptions:{type:variant.dots,color:variant.color},cornersSquareOptions:{type:variant.corner,color:variant.color},cornersDotOptions:{type:variant.dot,color:variant.color},backgroundOptions:{color:'#f7f9fc'}}).append(modules)}else{modules.style.backgroundImage='none'};document.querySelectorAll('.finder').forEach(f=>{f.style.setProperty('--finder-ink',style.ink)})})()</script><script>document.querySelectorAll('.group-chevron').forEach((node)=>node.remove())</script><script>document.querySelectorAll('.optional-tools,.tool-grid').forEach((node)=>node.remove());document.querySelectorAll('#fields details').forEach((node)=>{if(node.textContent.includes('Optional tools'))node.remove()});const flattenTypeCards=()=>{document.querySelectorAll('#tabs .type-group').forEach((node)=>node.remove());document.querySelectorAll('#tabs [data-t="card"]').forEach((node)=>node.remove())};flattenTypeCards();new MutationObserver(flattenTypeCards).observe(document.querySelector('#tabs')||document.body,{childList:true,subtree:true})</script><script src="consent.js" defer></script><script src="backtop.js" defer></script></body></html>
