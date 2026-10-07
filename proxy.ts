@@ -10,6 +10,7 @@ const qreePages = new Set([
   'contact.html',
   'privacy.html',
   'terms.html',
+  'tools/scanner.html',
   '403.html',
   '404.html',
   '500.html',
