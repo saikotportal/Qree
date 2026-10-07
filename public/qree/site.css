@@ -471,3 +471,6 @@ body:has(.pwa-install) .to-top{bottom:72px}
 /* Lock page scroll while the mobile menu is open */
 html.menu-lock{overflow:hidden;overscroll-behavior:none}
 .mobile-menu{overscroll-behavior:contain}
+
+/* Dim the page behind the open mobile menu (header stays above it) */
+.mobile-menu.is-open{box-shadow:0 0 0 100vmax rgba(0,0,0,.45)}

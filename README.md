@@ -2,7 +2,7 @@
 
 QREE is a private, browser-first QR code studio. Create, style, scan and export QR codes with no account, no watermark and no server round-trip — your content and uploads stay in your browser.
 
-The QREE site itself is a set of static pages (`public/qree/`) served by a small [Next.js](https://nextjs.org) app that embeds and routes to them.
+The QREE site itself is a set of static pages (`public/qree/`) served by a small [Next.js](https://nextjs.org) app that rewrites clean URLs to them.
 
 ## Features
 
@@ -10,7 +10,7 @@ The QREE site itself is a set of static pages (`public/qree/`) served by a small
 - **Customize** colors, shapes, logo, frame and contrast
 - **Export** and share your codes, or print them
 - **Bulk generation** for producing many codes at once
-- **Built-in scanner** (`/qree/tools/scanner.html`) powered by jsQR
+- **Built-in scanner** (`/tools/scanner`) powered by jsQR
 - **Templates and resources** pages to get started quickly
 - **Light / dark theme** toggle
 - **Installable PWA** with offline support via a service worker
@@ -32,7 +32,7 @@ pnpm install
 pnpm dev
 ```
 
-Then open <http://localhost:3000> — the root page loads the QREE generator. Pages are also available directly under `/qree/`, for example `/qree/about.html`.
+Then open <http://localhost:3000> — the root page loads the QREE generator. Pages are served from clean URLs such as `/about` and `/tools/scanner` (rewritten in `next.config.mjs` to the static files in `public/qree/`). The old `/qree/*.html` URLs permanently redirect to the clean ones.
 
 Other scripts:
 
@@ -65,7 +65,7 @@ pnpm start   # serve the production build
 ## Notes
 
 - When you change or add files in `public/qree/`, update the `ASSETS` list and bump the `CACHE` version in `public/qree/sw.js` so returning visitors receive the new files.
-- New pages under `public/qree/` must also be added to the `qreePages` set in `proxy.ts`, otherwise they are served as 404.
+- New pages under `public/qree/` must also be added to the `qreePages` set in `proxy.ts` (otherwise they are served as 404), to the `pages` list in `next.config.mjs` (clean URL + redirect) and to `lib/site.ts` (sitemap).
 - The generator page (`index.html`) loads some libraries from public CDNs; the About page and the scanner use locally vendored copies and work fully offline.
 
 ## SEO

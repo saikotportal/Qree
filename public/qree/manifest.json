@@ -1,10 +1,10 @@
 {
-  "id": "/qree/index.html",
+  "id": "/",
   "name": "QREE — Free QR Code Generator",
   "short_name": "QREE",
   "description": "Create beautiful, customizable QR codes privately in your browser.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#07080D",
   "theme_color": "#07080D",

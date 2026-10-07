@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var KEY = 'qree_consent_v1';
-  if (/(^|\/)(terms|privacy)\.html$/.test(location.pathname)) return; // never block the legal pages
+  if (/(^|\/)(terms|privacy)(\.html)?\/?$/.test(location.pathname)) return; // never block the legal pages
 
   function accepted() {
     try { return !!localStorage.getItem(KEY); } catch (e) { return !!window.__qreeConsent; }
@@ -57,7 +57,7 @@
     var no = txt('button', 'qc-btn', 'Decline'); no.type = 'button';
     var yes = txt('button', 'qc-btn qc-primary', 'I agree, continue'); yes.type = 'button';
     acts.appendChild(no); acts.appendChild(yes); main.appendChild(acts);
-    var a = txt('a', 'qc-link', 'Terms'); a.href = base + 'terms.html'; a.target = '_blank'; a.rel = 'noopener'; main.appendChild(a);
+    var a = txt('a', 'qc-link', 'Terms'); a.href = base + 'terms'; a.target = '_blank'; a.rel = 'noopener'; main.appendChild(a);
 
     /* declined view */
     var dec = el('div', 'qc-declined qc-hide');

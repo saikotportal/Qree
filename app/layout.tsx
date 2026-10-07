@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   creator: 'Saikot Islam Abir',
   keywords: ['QR code generator', 'free QR code', 'QR scanner', 'Wi-Fi QR code', 'custom QR code', 'private QR code'],
   manifest: '/qree/manifest.json',
-  alternates: { canonical: '/qree/index.html' },
+  alternates: { canonical: '/' },
   robots: {
     index: true,
     follow: true,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: 'QREE \u2013 Free QR Code Generator',
     description: SITE_DESCRIPTION,
-    url: '/qree/index.html',
+    url: '/',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'QREE \u2013 Free QR Code Generator' }],
   },
   twitter: {

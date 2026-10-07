@@ -11,15 +11,15 @@ export const SITE_NAME = 'QREE'
 export const SITE_DESCRIPTION =
   'Create beautiful, customizable QR codes for links, Wi-Fi, contacts and more. Free, private and no sign-up required.'
 
-// Real, directly-served pages (the root "/" only embeds index.html in an iframe).
+// Clean public URLs (next.config.mjs rewrites them to the static files in public/qree).
 export const INDEXABLE_PAGES = [
-  { path: '/qree/index.html', priority: 1.0, changeFrequency: 'monthly' as const },
-  { path: '/qree/features.html', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/qree/templates.html', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/qree/tools/scanner.html', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/qree/resources.html', priority: 0.7, changeFrequency: 'monthly' as const },
-  { path: '/qree/about.html', priority: 0.5, changeFrequency: 'yearly' as const },
-  { path: '/qree/contact.html', priority: 0.4, changeFrequency: 'yearly' as const },
-  { path: '/qree/privacy.html', priority: 0.3, changeFrequency: 'yearly' as const },
-  { path: '/qree/terms.html', priority: 0.3, changeFrequency: 'yearly' as const },
+  { path: '/', priority: 1.0, changeFrequency: 'monthly' as const },
+  { path: '/features', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/templates', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/tools/scanner', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/resources', priority: 0.7, changeFrequency: 'monthly' as const },
+  { path: '/about', priority: 0.5, changeFrequency: 'yearly' as const },
+  { path: '/contact', priority: 0.4, changeFrequency: 'yearly' as const },
+  { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' as const },
+  { path: '/terms', priority: 0.3, changeFrequency: 'yearly' as const },
 ]
