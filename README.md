@@ -27,19 +27,6 @@ The QREE site itself is a set of static pages (`public/qree/`) served by a small
 
 Requirements: Node.js 20+ and [pnpm](https://pnpm.io).
 
-```bash
-pnpm install
-pnpm dev
-```
-
-Then open <http://localhost:3000> — the root page loads the QREE generator. Pages are served from clean URLs such as `/about` and `/tools/scanner` (rewritten in `next.config.mjs` to the static files in `public/qree/`). The old `/qree/*.html` URLs permanently redirect to the clean ones.
-
-Other scripts:
-
-```bash
-pnpm build   # production build
-pnpm start   # serve the production build
-```
 
 ## Project structure
 
