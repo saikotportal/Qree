@@ -49,19 +49,7 @@ Requirements: Node.js 20+ and [pnpm](https://pnpm.io).
 └── package.json
 ```
 
-## Notes
 
-- When you change or add files in `public/qree/`, update the `ASSETS` list and bump the `CACHE` version in `public/qree/sw.js` so returning visitors receive the new files.
-- New pages under `public/qree/` must also be added to the `qreePages` set in `proxy.ts` (otherwise they are served as 404), to the `pages` list in `next.config.mjs` (clean URL + redirect) and to `lib/site.ts` (sitemap).
-- The generator page (`index.html`) loads some libraries from public CDNs; the About page and the scanner use locally vendored copies and work fully offline.
-
-## SEO
-
-- `app/robots.ts` and `app/sitemap.ts` generate `/robots.txt` and `/sitemap.xml`; the page list lives in `lib/site.ts`.
-- Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://qree.saikot.dev`) in your host's environment variables.
-- The static pages in `public/qree/` hold absolute canonical / Open Graph URLs for `https://qree.saikot.dev`. If the domain changes, replace it everywhere:
-  `grep -rl "qree.saikot.dev" . --exclude-dir=node_modules | xargs sed -i 's#https://qree.saikot.dev#https://YOUR-DOMAIN#g'`
-- Add any new public page to `INDEXABLE_PAGES` in `lib/site.ts` as well as to `proxy.ts`.
 
 ## Deployment
 
