@@ -10,7 +10,7 @@ The QREE site itself is a set of static pages (`public/qree/`) served by a small
 - **Customize** colors, shapes, logo, frame and contrast
 - **Export** and share your codes, or print them
 - **Bulk generation** for producing many codes at once
-- **Built-in scanner** (`/tools/scanner`) powered by jsQR
+- **Built-in scanner** 
 - **Templates and resources** pages to get started quickly
 - **Light / dark theme** toggle
 - **Installable PWA** with offline support via a service worker
