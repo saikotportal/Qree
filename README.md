@@ -2,7 +2,6 @@
 
 QREE is a private, browser-first QR code studio. Create, style, scan and export QR codes with no account, no watermark and no server round-trip — your content and uploads stay in your browser.
 
-The QREE site itself is a set of static pages (`public/qree/`) served by a small [Next.js](https://nextjs.org) app that rewrites clean URLs to them.
 
 ## Features
 
